@@ -1,0 +1,11 @@
+.doctors {
+    margin-left: 20rem;
+    padding: 2rem;
+}
+.doctor {
+    &-list {
+        display: flex;
+        flex-wrap: wrap;
+        margin: 0 -1.5rem;
+    }
+}

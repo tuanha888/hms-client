@@ -1,0 +1,11 @@
+.surgery {
+    &-item {
+        width: calc(33% - 3rem);
+        margin: 0 1.5rem;
+        font-size: 1.4rem;
+        span {
+            display: block;
+        }
+        margin-top: 1rem;
+    }
+}

@@ -1,0 +1,12 @@
+.usertop {
+    height: 6rem;
+    &-content {
+        margin-left: auto;
+    }
+    &-content-img {
+        img {
+            width: 6rem;
+            height: 6rem;
+        }
+    }
+}

@@ -1,0 +1,11 @@
+.modify {
+    &-image {
+        position: relative;
+    }
+    .image-picker {
+        position: absolute;
+        bottom: 30px;
+        left: 3px;
+        z-index: 3px;
+    }
+}

@@ -1,0 +1,18 @@
+@import "../../../index.scss";
+.doctor {
+    &-item {
+        width: calc(25% - 3rem);
+        margin: 0 1.5rem;
+        font-size: 1.4rem;
+        border-radius: 1rem;
+        padding: 1rem;
+        box-shadow: 3px 3px 3px 3px #ccc;
+        margin-top: 1rem;
+        cursor: pointer;
+        transition: $smooth;
+        &:hover {
+            transform: translate(-5px, -5px);
+        }
+    }
+    
+}

@@ -1,0 +1,23 @@
+.nav {
+    background-color: #fff;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 9999;
+    &-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    &-list {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+    }
+    &-item {
+        padding: 1.2rem;
+        
+    }
+}

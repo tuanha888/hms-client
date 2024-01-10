@@ -1,0 +1,31 @@
+@import "../../../index.scss";
+.sidebar {
+    width: 20rem;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    background-color: $primary-color
+    &-top {
+        padding-top: 2rem;
+        padding-left: 2rem;
+        padding-right: 2rem;
+        padding-bottom: 2rem;
+        border-bottom: 2px solid #fff;
+    }
+    &-list {
+        
+
+    }
+    &-item {
+        color: #fff;
+        padding: 1rem 1rem;
+        border-bottom: 2px solid #fff;
+        cursor: pointer;
+        transition: $smooth;
+        &:hover {
+            background-color: #fff;
+            color: $primary-color;
+        }
+    }
+}

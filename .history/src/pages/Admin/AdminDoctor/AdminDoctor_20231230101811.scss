@@ -1,0 +1,15 @@
+.doctors {
+    margin-left: 20rem;
+    padding: 2rem;
+    &-input {
+        width: 40rem !important;
+    }
+}
+.doctor {
+    &-list {
+        display: flex;
+        flex-wrap: wrap;
+        margin: 0 -1.5rem;
+    }
+    
+}

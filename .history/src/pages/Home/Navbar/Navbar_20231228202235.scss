@@ -1,0 +1,42 @@
+@import "../../../index.scss";
+.nav {
+    background-color: #fff;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 9999;
+    &-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    &-list {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+    }
+    &-item {
+        padding: 1.4rem;
+        transition: $smooth;
+        &:hover {
+            background-color: $primary-color;
+            color: #fff;
+        }
+        cursor: pointer;
+    }
+    &-login {
+        background-color: $primary-color;
+        border-radius: .4rem;
+        cursor: pointer;
+        padding: 1rem;
+        color: #fff;
+        margin-left: 1rem;
+        &:hover {
+            background-color: #fff;
+            color: $primary-color;
+            box-shadow: 2px 2px 2px 2px #ccc;
+        }
+    }
+}

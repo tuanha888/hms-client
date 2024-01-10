@@ -1,0 +1,9 @@
+.post-image {
+    width: 100%;
+    overflow: hidden;
+    border-radius: unset;
+    &-container {
+        display: flex;
+        background-color: #fff;
+    }
+}

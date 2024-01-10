@@ -1,0 +1,24 @@
+.about {
+    padding: 2rem;
+    background-image: linear-gradient(to bottom, rgba(#000, 0.7), rgba(#000, 0.7)),url('../../../assets//images/aboutus.jpg');
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    &-heading {
+        margin-top: 2rem;
+        font-size: 3.6rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        color: #fff;
+        text-align: center;
+    
+    }
+    &-content {
+        color: #fff;
+        margin-top: 1rem;
+        letter-spacing: 1.3px;
+        text-align: center;
+        max-width: 80rem;
+    }
+}

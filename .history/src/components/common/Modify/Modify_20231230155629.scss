@@ -1,0 +1,14 @@
+.modify {
+    &-image-container {
+        position: relative;
+    }
+    .image-picker {
+        position: absolute;
+        bottom: 2px;
+        right: 35%;
+        z-index: 99px !important;
+        color: #fff !important;
+        font-size: 3rem;
+        cursor: pointer;
+    }
+}

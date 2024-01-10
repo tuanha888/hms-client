@@ -1,0 +1,38 @@
+@import "../../../index.scss";
+.modify {
+    &-image-container {
+        position: relative;
+    }
+    .image-picker {
+        position: absolute;
+        bottom: -10px;
+        right: 30%;
+        z-index: 99px !important;
+        color: #000 !important;
+        font-size: 3rem;
+        cursor: pointer;
+        &.is-actived {
+            color: $primary-color !important;
+        }
+    }
+    .modal-modify-choosen {
+        position: relative;
+        .choosen {
+            display: none;
+            background-color: #fff;
+            &-item {
+                padding: 1rem;
+                border-bottom: 1px solid #ccc;
+            }
+        }
+        
+    }
+    .modal-data:focus-within .choosen {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 2rem;
+        left: 2rem;
+        z-index: 99999;
+    }
+}
