@@ -1,7 +1,6 @@
 import { Field } from "../common/interfaces";
 
-
-export const doctorFields: Field[] = [
+export const doctorFields : Field[] = [
     {
       fieldName: "name",
       fieldDisplay: "Họ tên",
@@ -10,6 +9,7 @@ export const doctorFields: Field[] = [
       modifyDisplay: true,
       choosen: null,
       type: "text",
+      viewDetail: null,
     },
     {
       fieldName: "departmentName",
@@ -17,8 +17,9 @@ export const doctorFields: Field[] = [
       overviewDisplay: true,
       detailDisplay: true,
       modifyDisplay: true,
-      choosen: "department.departments",
+      choosen: null,
       type: "text",
+      viewDetail: null,
     },
     {
       fieldName: "departmentId",
@@ -28,6 +29,7 @@ export const doctorFields: Field[] = [
       modifyDisplay: false,
       choosen: null,
       type: "text",
+      viewDetail: null,
     },
     {
       fieldName: "address",
@@ -35,8 +37,9 @@ export const doctorFields: Field[] = [
       overviewDisplay: false,
       detailDisplay: true,
       modifyDisplay: true,
-      choosen: "",
+      choosen: null,
       type: "text",
+      viewDetail: null,
     },
     {
       fieldName: "birthDay",
@@ -44,8 +47,9 @@ export const doctorFields: Field[] = [
       overviewDisplay: false,
       detailDisplay: true,
       modifyDisplay: true,
-      choosen: "",
+      choosen: null,
       type: "dateday",
+      viewDetail: null,
     },
     {
       fieldName: "phoneNumber",
@@ -53,8 +57,9 @@ export const doctorFields: Field[] = [
       overviewDisplay: false,
       detailDisplay: true,
       modifyDisplay: true,
-      choosen: "",
+      choosen: null,
       type: "text",
+      viewDetail: null,
     },
     {
       fieldName: "gender",
@@ -62,8 +67,9 @@ export const doctorFields: Field[] = [
       overviewDisplay: false,
       detailDisplay: false,
       modifyDisplay: false,
-      choosen: "",
+      choosen: null,
       type: "text",
+      viewDetail: null,
     },
     {
       fieldName: "image",
@@ -71,8 +77,9 @@ export const doctorFields: Field[] = [
       overviewDisplay: true,
       detailDisplay: true,
       modifyDisplay: true,
-      choosen: "",
+      choosen: null,
       type: "image",
+      viewDetail: null,
     },
     {
       fieldName: "rating",
@@ -80,7 +87,8 @@ export const doctorFields: Field[] = [
       overviewDisplay: true,
       detailDisplay: true,
       modifyDisplay: false,
-      choosen: "",
+      choosen: null,
       type: "text",
+      viewDetail: null,
     },
   ];
