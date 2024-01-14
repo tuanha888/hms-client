@@ -49,7 +49,7 @@ export const updateDoctor = createAsyncThunk(
         value: any
     }, {rejectWithValue}) => {
         console.log(data.value)
-        const emptyImage : File  = new File([], "hello")
+        const emptyImage : File  = new File([])
         const image = data.value.get("image")
         if (typeof image === "string") data.value.set("image", emptyImage)
         const accessToken = localStorage.getItem("accessToken");

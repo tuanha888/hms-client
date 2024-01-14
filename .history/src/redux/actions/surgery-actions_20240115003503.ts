@@ -8,7 +8,7 @@ export const getSurgeries = createAsyncThunk(
     'get-surgeries',
     async (_, {rejectWithValue}) => {
         const accessToken = localStorage.getItem("accessToken")
-        const response = await axios.get(`${HOST_URL}/api/surgeries/inWeek`,{
+        const response = await axios.get(`${HOST_URL}/api/surgeries/inweek`,{
             headers: {
                 Authorization: `Bearer ${accessToken}`
             }

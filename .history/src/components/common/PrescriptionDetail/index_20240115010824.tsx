@@ -7,13 +7,9 @@ import { v4 as uuidv4 } from "uuid";
 import { FaTimes } from "react-icons/fa";
 import Modify from "../Modify";
 import Create from "../Create";
-import {
-  deletePrescription,
-  updatePrescription,
-} from "../../../redux/actions/prescription-actions";
+import { updatePrescription } from "../../../redux/actions/prescription-actions";
 import { AppDispatch } from "../../../redux";
 import { useDispatch } from "react-redux";
-import ConfirmModal from "../ConfirmModal";
 
 interface PrescriptionDetailProps {
   prescription: Prescription;
@@ -144,7 +140,7 @@ const PrescriptionDetail: React.FC<PrescriptionDetailProps> = ({
       ...prevState,
       note: value.note,
     }));
-    await dispatch(updatePrescription({ id: id, value: prescription }));
+    await dispatch(updatePrescription({ id: id, value: pres }));
   };
   const handleAddMed = (values) => {
     setPres((prevState) => {
@@ -154,9 +150,6 @@ const PrescriptionDetail: React.FC<PrescriptionDetailProps> = ({
         medicines,
       };
     });
-  };
-  const handleDelete = async () => {
-    await dispatch(deletePrescription(pres.id));
   };
   const fields: Field[] = [
     {
@@ -252,14 +245,6 @@ const PrescriptionDetail: React.FC<PrescriptionDetailProps> = ({
           initFields={initFields}
           closeCreateModal={closeAddMed}
           handleSubmit={handleAddMed}
-        />
-      )}
-      {isConfirmModal && (
-        <ConfirmModal
-          type={"DELETE"}
-          closeConfirmModal={closeConfirmModal}
-          closeModifyModal={null}
-          deleteFunction={handleDelete}
         />
       )}
     </>

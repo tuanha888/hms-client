@@ -186,7 +186,7 @@ const PatientDetail: React.FC<DetailProps> = ({
           type="DELETE"
           closeConfirmModal={closeConfirmModal}
           closeModifyModal={null}
-          deleteFunction={handleDeletePatient}
+          deleteFunction={handleDelete}
         />
       )}
       {isPrescriptionModal && (

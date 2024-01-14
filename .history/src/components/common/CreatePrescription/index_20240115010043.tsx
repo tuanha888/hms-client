@@ -7,23 +7,16 @@ import { v4 as uuidv4 } from "uuid";
 import { FaTimes } from "react-icons/fa";
 import Modify from "../Modify";
 import Create from "../Create";
-import {
-  deletePrescription,
-  updatePrescription,
-} from "../../../redux/actions/prescription-actions";
-import { AppDispatch } from "../../../redux";
 import { useDispatch } from "react-redux";
-import ConfirmModal from "../ConfirmModal";
+import { createPrescription } from "../../../redux/actions/prescription-actions";
 
 interface PrescriptionDetailProps {
-  prescription: Prescription;
-  closeDetailModal: Function;
-  openDetailEdit: boolean;
+  patient: any;
+  closeCreateModal: Function;
 }
-const PrescriptionDetail: React.FC<PrescriptionDetailProps> = ({
-  prescription: pres,
-  closeDetailModal,
-  openDetailEdit,
+const CreatePrescription: React.FC<PrescriptionDetailProps> = ({
+  patient,
+  closeCreateModal,
 }) => {
   const {
     isModalOpen: isModifyOpen,
@@ -40,7 +33,11 @@ const PrescriptionDetail: React.FC<PrescriptionDetailProps> = ({
     closeModal: closeAddMed,
     openModal: openAddMed,
   } = useModal();
-  const dispatch: AppDispatch = useDispatch();
+  const {
+    isModalOpen: isAddNote,
+    closeModal: closeAddNote,
+    openModal: openAddNote,
+  } = useModal();
   const medFields: Field[] = [
     {
       fieldName: "name",
@@ -133,31 +130,6 @@ const PrescriptionDetail: React.FC<PrescriptionDetailProps> = ({
       viewDetail: null,
     },
   ];
-  const [prescription, setPres] = useState({
-    patientId: pres.patientId,
-    note: pres.note,
-    createdDay: pres.createdDay,
-    medicines: pres.medicines,
-  });
-  const handleModify = async ({ id, value }) => {
-    await setPres((prevState) => ({
-      ...prevState,
-      note: value.note,
-    }));
-    await dispatch(updatePrescription({ id: id, value: prescription }));
-  };
-  const handleAddMed = (values) => {
-    setPres((prevState) => {
-      const medicines = [...prevState.medicines, values];
-      return {
-        ...prevState,
-        medicines,
-      };
-    });
-  };
-  const handleDelete = async () => {
-    await dispatch(deletePrescription(pres.id));
-  };
   const fields: Field[] = [
     {
       fieldName: "note",
@@ -170,25 +142,42 @@ const PrescriptionDetail: React.FC<PrescriptionDetailProps> = ({
       viewDetail: null,
     },
   ];
-  const initFields: InitField[] = [
-    {
-      fieldName: "id",
-      fieldValue: uuidv4(),
-    },
-    {
-      fieldName: "prescriptionId",
-      fieldValue: pres.id,
-    },
-  ];
+  const [pres, setPres] = useState({
+    patientId: patient.id,
+    note: "",
+    createdDay: new Date(),
+    medicines: [],
+  });
+  const dispatch = useDispatch();
+  const handleModify = ({ id, value }) => {
+    setPres((prevState) => ({
+      ...prevState,
+      note: value.note,
+    }));
+  };
+  const handleAddMed = (values) => {
+    setPres((prevState) => {
+      const medicines = [...prevState.medicines, values];
+      return {
+        ...prevState,
+        medicines,
+      };
+    });
+  };
+  const handleCreate = async () => {
+    await dispatch(createPrescription(pres));
+  };
+  const handleAddNote = (values) => {
+    setPres((prev) => {
+      return {
+        ...prev,
+        note: values.note,
+      };
+    });
+  };
   const renderMedicines = () => {
-    return prescription.medicines.map((medicine) => {
-      return (
-        <Medicine
-          medicine={medicine}
-          openEdit={openDetailEdit}
-          setPres={setPres}
-        />
-      );
+    return pres.medicines.map((medicine) => {
+      return <Medicine medicine={medicine} openEdit={true} setPres={setPres} />;
     });
   };
   return (
@@ -196,45 +185,28 @@ const PrescriptionDetail: React.FC<PrescriptionDetailProps> = ({
       <div className="modal-container">
         <div className="modal-wrapper">
           <div className="modal">
-            <p className="modal-item overview-item">
-              <span className="modal-field overview-field">Bệnh nhân:</span>{" "}
-              <span>{pres.patientName}</span>
-            </p>
-            <p className="modal-item overview-item">
-              <span className="modal-field overview-field">Bác sĩ:</span>{" "}
-              <span>{pres.doctorName}</span>
-            </p>
-            <p className="modal-item overview-item">
-              <span className="modal-field overview-field">Ngày tạo:</span>{" "}
-              <span>
-                {prescription.createdDay.toLocaleDateString("vi", {
-                  day: "2-digit",
-                  month: "2-digit",
-                  year: "numeric",
-                })}
-              </span>
-            </p>
             <ul className="medicines">{renderMedicines()}</ul>
-            {openDetailEdit && (
+            {
               <button className="modal-button" onClick={openAddMed}>
                 Thêm thuốc
               </button>
-            )}
+            }
             <p className="modal-item overview-item">
               <span className="modal-field overview-field">Lưu ý:</span>{" "}
-              <span>{prescription.note}</span>
+              <span>{pres.note}</span>
             </p>
-            <FaTimes className="modal-close" onClick={closeDetailModal} />
-            {openDetailEdit && (
-              <>
-                <button className="modal-button" onClick={openModify}>
-                  Thay đổi
-                </button>
-                <button className="modal-button" onClick={openConfirmModal}>
-                  Xóa
-                </button>
-              </>
-            )}
+            <FaTimes className="modal-close" onClick={closeCreateModal} />
+            <>
+              <button className="modal-button" onClick={openAddNote}>
+                {pres.note !== "" ? "Sửa lưu ý" : "Thêm lưu ý"}
+              </button>
+              <button className="modal-button" onClick={handleCreate}>
+                Thêm
+              </button>
+              <button className="modal-button" onClick={openConfirmModal}>
+                Hủy
+              </button>
+            </>
           </div>
         </div>
       </div>
@@ -244,26 +216,27 @@ const PrescriptionDetail: React.FC<PrescriptionDetailProps> = ({
           handleSubmit={handleModify}
           entity={pres}
           closeModifyModal={closeModify}
+          handleDelete={undefined}
         />
       )}
       {isAddMed && (
         <Create
           fields={medFields}
-          initFields={initFields}
+          initFields={[]}
           closeCreateModal={closeAddMed}
           handleSubmit={handleAddMed}
         />
       )}
-      {isConfirmModal && (
-        <ConfirmModal
-          type={"DELETE"}
-          closeConfirmModal={closeConfirmModal}
-          closeModifyModal={null}
-          deleteFunction={handleDelete}
+      {isAddNote && (
+        <Create
+          fields={fields}
+          initFields={[]}
+          closeCreateModal={closeAddNote}
+          handleSubmit={handleAddNote}
         />
       )}
     </>
   );
 };
 
-export default PrescriptionDetail;
+export default CreatePrescription;

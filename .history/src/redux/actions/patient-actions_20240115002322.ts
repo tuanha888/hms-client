@@ -82,7 +82,7 @@ export const deletePatient = createAsyncThunk(
     'delete-patient',
     async (id: string, {rejectWithValue}) => {
         const accessToken = localStorage.getItem("accessToken");
-        const response = await axios.delete(`${HOST_URL}/api/patients/${id}`,{
+        const response = await axios.delete(`${HOST_URL}/api/medical_records/${id}`,{
             headers: {
                 Authorization: `Bearer ${accessToken}`
             }

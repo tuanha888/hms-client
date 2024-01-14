@@ -5,7 +5,6 @@ import { Field, InitField } from "../../../components/common/interfaces";
 import Patient from "../../../components/common/Patient";
 import {
   createPatient,
-  deletePatient,
   getDoctorPatients,
   getPatients,
 } from "../../../redux/actions/patient-actions";
@@ -65,20 +64,10 @@ const Patients = () => {
           )
     );
   };
-  const handleDelete = async (id: string) => {
-    await dispatch(deletePatient(id));
-  };
   const handleSubmit = () => {};
   const renderPatients = () => {
     return patients.map((patient) => {
-      return (
-        <Patient
-          fields={fields}
-          entity={patient}
-          openDetailEdit={true}
-          handleDelete={handleDelete}
-        />
-      );
+      return <Patient fields={fields} entity={patient} openDetailEdit={true} />;
     });
   };
   const handleCreate = async (values) => {

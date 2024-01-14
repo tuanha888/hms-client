@@ -1,38 +1,36 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { getMedicalRecords } from "../fake-api/medicalRecord-api";
+import { getDoctorsAPI } from "../fake-api/doctor-api";
 import axios from "axios";
 import { HOST_URL, convertDatesToObjects } from "./config";
 
 
-export const getMedicalRecord = createAsyncThunk(
-    'get-medical-record',
-    async ()=> {
-        
-    }
-)
+export interface DoctorRequest {
+    name: string,
+    address: string,
+    departmentId: string,
+    birthday: Date,
+    phoneNumber: string,
+    gender: string,
+    image: any,
+}
 
-export const getMedicalRecordOfPatients = createAsyncThunk(
-    'get-medical-record-of-patients',
-    async (id: string, {rejectWithValue}) => {
-        const accessToken = localStorage.getItem("accessToken");
-        const response = await axios.get(`${HOST_URL}/api/medical_records?patientId=${id}`,{
-            headers: {
-                Authorization: `Bearer ${accessToken}`
-            }
-        })
+export const getDoctors = createAsyncThunk(
+    'get-doctors',
+    async (_, {rejectWithValue}) => {
+        const response = await axios.get(`${HOST_URL}/doctors`)
         if (response.status < 200 || response.status >=300) {
             rejectWithValue(response);
         }
-        return convertDatesToObjects(response.data);;
+        return convertDatesToObjects(response.data);
     }
 )
 
-export const createMedicalRecord = createAsyncThunk(
-    'create-medical',
-    async (data: any, {rejectWithValue}) => {
+export const createDoctor = createAsyncThunk(
+    'create-doctor', 
+    async (data: any, {rejectWithValue})=> {
         console.log(data)
         const accessToken = localStorage.getItem("accessToken");
-        const response = await axios.post(`${HOST_URL}/api/medical_records`, data,{
+        const response = await axios.post(`${HOST_URL}/api/doctors/`, data,{
             headers: {
                 Authorization: `Bearer ${accessToken}`
             }
@@ -40,20 +38,24 @@ export const createMedicalRecord = createAsyncThunk(
         if (response.status < 200 || response.status >=300) {
             rejectWithValue(response);
         }
-        return convertDatesToObjects(response.data);;
+        return convertDatesToObjects(response.data); 
     }
 )
 
-export const updateMedicalRecord = createAsyncThunk(
-    'update-medical',
+export const updateDoctor = createAsyncThunk(
+    'update-doctor',
     async (data: {
         id: string,
         value: any
     }, {rejectWithValue}) => {
+        console.log(data.value)
+        const image = data.value.get("image")
+        if (typeof image === "string") data.value.set("image", undefined)
         const accessToken = localStorage.getItem("accessToken");
-        const response = await axios.put(`${HOST_URL}/api/medical_records/${data.id}`, data.value,{
+        const response = await axios.put(`${HOST_URL}/api/doctors/${data.id}`, data.value,{
             headers: {
-                Authorization: `Bearer ${accessToken}`
+                Authorization: `Bearer ${accessToken}`,
+                
             }
         })
         if (response.status < 200 || response.status >=300) {
@@ -61,13 +63,13 @@ export const updateMedicalRecord = createAsyncThunk(
         }
         return convertDatesToObjects(response.data);;
     }
+)
 
-    )   
-export const deleteMedicalRecord = createAsyncThunk(
-    'delete-medical',
+export const deleteDoctor = createAsyncThunk(
+    'delete-doctor',
     async (id: string, {rejectWithValue}) => {
         const accessToken = localStorage.getItem("accessToken");
-        const response = await axios.delete(`${HOST_URL}/api/medical_records/${id}`,{
+        const response = await axios.delete(`${HOST_URL}/api/doctors/${id}`,{
             headers: {
                 Authorization: `Bearer ${accessToken}`
             }

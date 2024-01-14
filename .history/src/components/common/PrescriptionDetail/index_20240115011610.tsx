@@ -13,7 +13,6 @@ import {
 } from "../../../redux/actions/prescription-actions";
 import { AppDispatch } from "../../../redux";
 import { useDispatch } from "react-redux";
-import ConfirmModal from "../ConfirmModal";
 
 interface PrescriptionDetailProps {
   prescription: Prescription;
@@ -155,8 +154,8 @@ const PrescriptionDetail: React.FC<PrescriptionDetailProps> = ({
       };
     });
   };
-  const handleDelete = async () => {
-    await dispatch(deletePrescription(pres.id));
+  const handleDelete = async (id: string) => {
+    await dispatch(deletePrescription(id));
   };
   const fields: Field[] = [
     {
@@ -252,14 +251,6 @@ const PrescriptionDetail: React.FC<PrescriptionDetailProps> = ({
           initFields={initFields}
           closeCreateModal={closeAddMed}
           handleSubmit={handleAddMed}
-        />
-      )}
-      {isConfirmModal && (
-        <ConfirmModal
-          type={"DELETE"}
-          closeConfirmModal={closeConfirmModal}
-          closeModifyModal={null}
-          deleteFunction={handleDelete}
         />
       )}
     </>
