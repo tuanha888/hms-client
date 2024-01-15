@@ -29,7 +29,7 @@ export const getDoctor = createAsyncThunk(
 export const getDoctors = createAsyncThunk(
     'get-doctors',
     async (_, {rejectWithValue}) => {
-        const response = await axios.get(`${HOST_URL}/doctors`)
+        const response = await axios.get(`${HOST_URL}/doctors/all`)
         if (response.status < 200 || response.status >=300) {
             rejectWithValue(response);
         }
