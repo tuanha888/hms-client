@@ -80,6 +80,7 @@ const Votes: React.FC<VotesProps> = ({ doctorId, closeModal, doctorName }) => {
           </li>
         );
       } else {
+        setIsVoted(true);
         return (
           <li className="vote">
             <div className="vote-wrapper">

@@ -45,7 +45,7 @@ const Votes: React.FC<VotesProps> = ({ doctorId, closeModal, doctorName }) => {
     closeModal: closeModifyModal,
     openModal: openModify,
   } = useModal();
-  const isVoted = votes.some((vote) => vote.patientId === user!.id);
+  const isVoted = votes.some((vote) => vote.patientId === user.id);
   const fields = addVoteFields;
   const initFields: InitField[] = [
     {
@@ -80,6 +80,7 @@ const Votes: React.FC<VotesProps> = ({ doctorId, closeModal, doctorName }) => {
           </li>
         );
       } else {
+        setIsVoted(true);
         return (
           <li className="vote">
             <div className="vote-wrapper">
