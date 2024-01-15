@@ -13,6 +13,7 @@ import notificationReducer from "./features/notificationSlice";
 import displayUserReducer from "./features/displayUserSlice";
 import voteReducer from "./features/voteSlice";
 import treatmentPlanReducer from "./features/treatmentPlanSlice";
+import messageReducer from "./features/messageSlice";
 import { combineReducers } from "redux";
 import { configureStore } from "@reduxjs/toolkit";
 
@@ -32,6 +33,7 @@ const rootReducers = combineReducers({
   displayUser: displayUserReducer,
   vote: voteReducer,
   treatmentPlan: treatmentPlanReducer,
+  message: messageReducer
 });
 
 export const store = configureStore({

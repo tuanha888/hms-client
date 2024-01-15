@@ -21,6 +21,10 @@ const Sidebar = () => {
       name: "Bài viết",
       to: "/doctor/posts",
     },
+    {
+      name: "Nhắn tin",
+      to: "/doctor/chat"
+    }
   ];
   const renderSidebarList = () => {
     return items.map((item) => {

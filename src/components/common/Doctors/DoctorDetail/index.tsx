@@ -10,6 +10,8 @@ import { AppDispatch, RootState } from "../../../../redux";
 import Votes from "../../Votes";
 import Create from "../../Create";
 import { createAppointment } from "../../../../redux/actions/appointment-actions";
+import ChatModal from "../../ChatModal";
+import { Doctor } from "../../../../redux/features/doctorSlice";
 interface DetailProps {
   fields: Field[];
   entity: any;
@@ -28,8 +30,8 @@ const DoctorDetail: React.FC<DetailProps> = ({
   entity =
     !entity && id !== null
       ? useSelector((state: RootState) =>
-          state.doctor.doctors.filter((doctor) => doctor.id === id)
-        )[0]
+        state.doctor.doctors.filter((doctor) => doctor.id === id)
+      )[0]
       : entity;
   const {
     isModalOpen: isVotesOpen,
@@ -84,6 +86,11 @@ const DoctorDetail: React.FC<DetailProps> = ({
     closeModal: closeAddAppointment,
     openModal: openAddAppointment,
   } = useModal();
+  const {
+    isModalOpen: isOpenChatBox,
+    openModal: openChatBox,
+    closeModal: closeChatBox
+  } = useModal();
   const renderEntity = () => {
     const render: ReactNode[] = [];
     fields.forEach((field) => {
@@ -96,12 +103,12 @@ const DoctorDetail: React.FC<DetailProps> = ({
                 {!field.type.includes("date")
                   ? entity[field.fieldName]
                   : field.type === "dateday"
-                  ? entity[field.fieldName].toLocaleDateString("vi", {
+                    ? entity[field.fieldName].toLocaleDateString("vi", {
                       day: "2-digit",
                       month: "2-digit",
                       year: "numeric",
                     })
-                  : entity[field.fieldName].toLocaleDateString("vi", {
+                    : entity[field.fieldName].toLocaleDateString("vi", {
                       day: "2-digit",
                       month: "2-digit",
                       year: "numeric",
@@ -133,7 +140,9 @@ const DoctorDetail: React.FC<DetailProps> = ({
             <button className="modal-button" onClick={openAddAppointment}>
               Tạo lịch hẹn
             </button>
-            <button className="modal-button">Nhắn tin</button>
+            <button className="modal-button" onClick={openChatBox}>
+              Nhắn tin
+            </button>
             <button className="modal-button" onClick={openVotesModal}>
               Xem đánh giá
             </button>
@@ -156,6 +165,14 @@ const DoctorDetail: React.FC<DetailProps> = ({
           initFields={initFields}
         />
       )}
+      {
+        isOpenChatBox && (
+          <ChatModal
+            closeChatBox={closeChatBox}
+            selectedUser={entity as Doctor}
+          />
+        )
+      }
     </>
   );
 };

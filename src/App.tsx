@@ -19,6 +19,7 @@ import Prescription from "./components/common/Prescription";
 import Prescriptions from "./components/common/Prescriptions";
 import Notification from "./components/common/Notification";
 import DisplayUser from "./components/common/DisplayUser";
+import Chat from "./components/common/Chat";
 function App() {
   return (
     <div className="wrapper">
@@ -51,6 +52,7 @@ function App() {
               element={<Appointments role="DOCTOR" />}
             />
             <Route path="/doctor/posts" element={<PostsDoctor />} />
+            <Route path="/doctor/chat" element={<Chat role="DOCTOR" />} />
           </Route>
           <Route
             path="/patient"
@@ -66,6 +68,7 @@ function App() {
             />
             <Route path="/patient/treatment_plans" />
             <Route path="/patient/doctors" element={<Doctors />} />
+            <Route path="/patient/chat" element={<Chat role="PATIENT" />} />
           </Route>
           <Route path="/posts/:id" element={<Post />} />
           <Route path="/posts" element={<Posts />} />
