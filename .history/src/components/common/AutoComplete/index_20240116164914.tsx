@@ -41,11 +41,7 @@ const AutoComplete = ({ field, choosen, fieldValue, setFieldValue }) => {
       </li>
     ));
   };
-  const validationFunction = (value) => {
-    return value
-      ? undefined
-      : `Trường ${field.fieldDisplay.toLowerCase()} là bắt buộc`;
-  };
+
   return (
     <div className="modal-data modal-modify-choosen">
       <label className="modal-label" htmlFor={field.fieldName}>
@@ -57,7 +53,6 @@ const AutoComplete = ({ field, choosen, fieldValue, setFieldValue }) => {
         className="modal-input"
         onChange={handleChange}
         value={inputValue}
-        validate={validationFunction}
       />
       <ErrorMessage
         name={field.fieldName}

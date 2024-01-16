@@ -90,7 +90,7 @@ const AdminDoctor = () => {
       choosen: null,
       type: "dateday",
       viewDetail: null,
-      needValidated: true,
+      needValidated: false,
     },
     {
       fieldName: "phoneNumber",

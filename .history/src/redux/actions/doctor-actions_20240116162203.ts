@@ -42,8 +42,9 @@ export const createDoctor = createAsyncThunk(
     'create-doctor', 
     async (data: any, {rejectWithValue})=> {
         const emptyImage : File  = new File([], "hello")
-        const image = data.get("image")
-        if (image === null) data.set("image", emptyImage)
+        const image = data.value.get("image")
+        console.log(typeof image)
+        if (image === null) data.value.set("image", emptyImage)
         let phoneNumber = data.get('phoneNumber')
         phoneNumber = phoneNumber.replace('0','84')
         data.set('phoneNumber', phoneNumber)

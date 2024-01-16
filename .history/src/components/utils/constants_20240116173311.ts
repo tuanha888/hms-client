@@ -228,7 +228,6 @@ export const medicalRecordFields : Field[] = [
         choosen: null,
         type: "text",
         viewDetail: null,
-        needValidated: false
       },
       {
         fieldName: "doctorName",
@@ -238,8 +237,7 @@ export const medicalRecordFields : Field[] = [
         modifyDisplay: false,
         choosen: null,
         type: "text",
-        viewDetail: null,
-        needValidated: false
+        viewDetail: null
       },
       {
         fieldName: "patientId",
@@ -250,7 +248,6 @@ export const medicalRecordFields : Field[] = [
         choosen: null,
         type: "text",
         viewDetail: null,
-        needValidated: false
       },
       {
         fieldName: "patientName",
@@ -260,8 +257,7 @@ export const medicalRecordFields : Field[] = [
         modifyDisplay: false,
         choosen: null,
         type: "text",
-        viewDetail: null,
-        needValidated: false
+        viewDetail: null
       },
       {
         fieldName: "departmentId",
@@ -271,8 +267,7 @@ export const medicalRecordFields : Field[] = [
         modifyDisplay: false,
         choosen: null,
         type: "text",
-        viewDetail: null,
-        needValidated: false
+        viewDetail: null
       },
       {
         fieldName: "departmentName",
@@ -282,8 +277,7 @@ export const medicalRecordFields : Field[] = [
         modifyDisplay: false,
         choosen: null,
         type: "text",
-        viewDetail: null,
-        needValidated: false
+        viewDetail: null
       },
       {
         fieldName: "bhytCode",
@@ -293,8 +287,7 @@ export const medicalRecordFields : Field[] = [
         modifyDisplay: true,
         choosen: null,
         type: "text",
-        viewDetail: null,
-        needValidated: false
+        viewDetail: null
       },
       {
         fieldName: "inDay",
@@ -304,8 +297,7 @@ export const medicalRecordFields : Field[] = [
         modifyDisplay: true,
         choosen: null,
         type: "datetime",
-        viewDetail: null,
-        needValidated: true
+        viewDetail: null
       },
       {
         fieldName: "outDay",
@@ -315,8 +307,7 @@ export const medicalRecordFields : Field[] = [
         modifyDisplay: true,
         choosen: null,
         type: "datetime",
-        viewDetail: null,
-        needValidated: false
+        viewDetail: null
       },
       {
         fieldName: "inDayDiagnose",
@@ -326,8 +317,7 @@ export const medicalRecordFields : Field[] = [
         modifyDisplay: true,
         choosen: null,
         type: "textarea",
-        viewDetail: null,
-        needValidated: true
+        viewDetail: null
       },
       {
         fieldName: "outDayDiagnose",
@@ -337,8 +327,7 @@ export const medicalRecordFields : Field[] = [
         modifyDisplay: true,
         choosen: null,
         type: "textarea",
-        viewDetail: null,
-        needValidated: false
+        viewDetail: null
       },
       {
         fieldName: "medicalHistory",
@@ -348,8 +337,7 @@ export const medicalRecordFields : Field[] = [
         modifyDisplay: true,
         choosen: null,
         type: "textarea",
-        viewDetail: null,
-        needValidated: true
+        viewDetail: null
       },
       {
         fieldName: "diseaseProgress",
@@ -359,8 +347,7 @@ export const medicalRecordFields : Field[] = [
         modifyDisplay: true,
         choosen: null,
         type: "textarea",
-        viewDetail: null,
-        needValidated: true
+        viewDetail: null
       },
       {
         fieldName: "testResults",
@@ -370,8 +357,7 @@ export const medicalRecordFields : Field[] = [
         modifyDisplay: true,
         choosen: null,
         type: "textarea",
-        viewDetail: null,
-        needValidated: true
+        viewDetail: null
       },
       {
         fieldName: "hospitalDischargeStatus",
@@ -381,8 +367,7 @@ export const medicalRecordFields : Field[] = [
         modifyDisplay: true,
         choosen: null,
         type: "textarea",
-        viewDetail: null,
-        needValidated: false
+        viewDetail: null
       },
       {
         fieldName: "stayType",
@@ -392,8 +377,7 @@ export const medicalRecordFields : Field[] = [
         modifyDisplay: true,
         choosen: null,
         type: "select",
-        viewDetail: null,
-        needValidated: false
+        viewDetail: null
       },
       {
         fieldName: "note",
@@ -403,8 +387,7 @@ export const medicalRecordFields : Field[] = [
         modifyDisplay: true,
         choosen: null,
         type: "textarea",
-        viewDetail: null,
-        needValidated: false
+        viewDetail: null
       },
 
 ]

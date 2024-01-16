@@ -40,7 +40,7 @@ const DateTimeInput = ({ field, form, ...props }) => {
         timeIntervals={15} // Adjust as needed
         dateFormat="dd/MM/yyyy HH:mm"
       />
-      {/* <ErrorMessage name={field.name} component="div" className="error" /> */}
+      <ErrorMessage name={field.name} component="div" className="error" />
     </div>
   );
 };
@@ -54,7 +54,7 @@ const DateDayInput = ({ field, form, ...props }) => {
         onChange={(val) => form.setFieldValue(field.name, val)}
         dateFormat="dd/MM/yyyy"
       />
-      {/* <ErrorMessage name={field.name} component="div" className="error" /> */}
+      <ErrorMessage name={field.name} component="div" className="error" />
     </div>
   );
 };
@@ -94,38 +94,21 @@ const Modify: React.FC<ModifyProps> = ({
     fields.forEach((field) => {
       if (field.modifyDisplay) {
         let validationFunction;
-        if (field.needValidated) {
+
+        if (field.validated) {
+          // Custom validation function for datetime, dateday, text, and textarea fields
           validationFunction = (value) => {
             if (field.type === "datetime" || field.type === "dateday") {
-              const now = new Date();
               const fieldValue = new Date(value);
-
-              return fieldValue < now
-                ? "Thời gian phải lớn hơn thời gian hiện tại"
+              return fieldValue > now
+                ? "Must be greater than the current time"
                 : undefined;
             } else if (field.type === "text" || field.type === "textarea") {
-              return value
-                ? undefined
-                : `Trường ${field.fieldDisplay.toLowerCase()} là bắt buộc`;
+              return value ? undefined : "This field is required";
             }
 
             return undefined;
           };
-          if (field.fieldName === "birthday")
-            validationFunction = (value) => {
-              const fieldValue = new Date(value);
-              const now = new Date();
-              return fieldValue > now
-                ? "Ngày sinh phải bé hơn hiện tại"
-                : undefined;
-            };
-          if (field.fieldName === "phoneNumber") {
-            validationFunction = (value) => {
-              return value.trim().length !== 10
-                ? "Số điện thoại phải có 10 chữ số"
-                : undefined;
-            };
-          }
         }
         if (field.type === "text") {
           if (field.choosen !== null) {
@@ -186,12 +169,6 @@ const Modify: React.FC<ModifyProps> = ({
                   type="text"
                   name={field.fieldName}
                   className="modal-input"
-                  validate={validationFunction}
-                />
-                <ErrorMessage
-                  name={field.fieldName}
-                  component="div"
-                  className="error-message"
                 />
               </div>
             );
@@ -205,12 +182,6 @@ const Modify: React.FC<ModifyProps> = ({
                 name={field.fieldName}
                 className="modal-input"
                 component={DateTimeInput}
-                validate={validationFunction}
-              />
-              <ErrorMessage
-                name={field.fieldName}
-                component="div"
-                className="error-message"
               />
             </div>
           );
@@ -224,12 +195,6 @@ const Modify: React.FC<ModifyProps> = ({
                 name={field.fieldName}
                 className="modal-input"
                 component={DateDayInput}
-                validate={validationFunction}
-              />
-              <ErrorMessage
-                name={field.fieldName}
-                component="div"
-                className="error-message"
               />
             </div>
           );
@@ -276,12 +241,6 @@ const Modify: React.FC<ModifyProps> = ({
                 className="modal-input autoScaleTextarea"
                 onInput={handleScale(this)}
                 onKeyDown={handleEnter}
-                validate={validationFunction}
-              />
-              <ErrorMessage
-                name={field.fieldName}
-                component="div"
-                className="error-message"
               />
             </div>
           );

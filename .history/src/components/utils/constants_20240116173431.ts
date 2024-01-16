@@ -326,8 +326,7 @@ export const medicalRecordFields : Field[] = [
         modifyDisplay: true,
         choosen: null,
         type: "textarea",
-        viewDetail: null,
-        needValidated: true
+        viewDetail: null
       },
       {
         fieldName: "outDayDiagnose",
@@ -337,8 +336,7 @@ export const medicalRecordFields : Field[] = [
         modifyDisplay: true,
         choosen: null,
         type: "textarea",
-        viewDetail: null,
-        needValidated: false
+        viewDetail: null
       },
       {
         fieldName: "medicalHistory",
@@ -348,8 +346,7 @@ export const medicalRecordFields : Field[] = [
         modifyDisplay: true,
         choosen: null,
         type: "textarea",
-        viewDetail: null,
-        needValidated: true
+        viewDetail: null
       },
       {
         fieldName: "diseaseProgress",
@@ -359,8 +356,7 @@ export const medicalRecordFields : Field[] = [
         modifyDisplay: true,
         choosen: null,
         type: "textarea",
-        viewDetail: null,
-        needValidated: true
+        viewDetail: null
       },
       {
         fieldName: "testResults",
@@ -370,8 +366,7 @@ export const medicalRecordFields : Field[] = [
         modifyDisplay: true,
         choosen: null,
         type: "textarea",
-        viewDetail: null,
-        needValidated: true
+        viewDetail: null
       },
       {
         fieldName: "hospitalDischargeStatus",
@@ -381,8 +376,7 @@ export const medicalRecordFields : Field[] = [
         modifyDisplay: true,
         choosen: null,
         type: "textarea",
-        viewDetail: null,
-        needValidated: false
+        viewDetail: null
       },
       {
         fieldName: "stayType",
@@ -392,8 +386,7 @@ export const medicalRecordFields : Field[] = [
         modifyDisplay: true,
         choosen: null,
         type: "select",
-        viewDetail: null,
-        needValidated: false
+        viewDetail: null
       },
       {
         fieldName: "note",
@@ -403,8 +396,7 @@ export const medicalRecordFields : Field[] = [
         modifyDisplay: true,
         choosen: null,
         type: "textarea",
-        viewDetail: null,
-        needValidated: false
+        viewDetail: null
       },
 
 ]

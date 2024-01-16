@@ -1,5 +1,5 @@
-import React, { ReactNode, useRef } from "react";
-import { Field } from "../interfaces";
+import React, { ReactNode, useCallback, useEffect, useRef } from "react";
+import { Field, InitField } from "../interfaces";
 import { useModal } from "../../hooks/useModal";
 import { AppDispatch } from "../../../redux";
 import { useDispatch } from "react-redux";
@@ -8,26 +8,17 @@ import { FaImages, FaTimes } from "react-icons/fa";
 import ConfirmModal from "../ConfirmModal";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { registerLocale, setDefaultLocale } from "react-datepicker";
-import vi from "date-fns/locale/vi";
-import "./Modify.scss";
+import "../Modify/Modify.scss";
 import AutoComplete from "../AutoComplete";
+import { parseISO } from "date-fns";
 import { setLoading } from "../../../redux/features/loadingSlice";
 import { setNotification } from "../../../redux/features/notificationSlice";
-interface ModifyProps {
+interface CreateProps {
   fields: Field[];
-  entity: any;
-  closeModifyModal: Function;
   handleSubmit: Function;
+  closeCreateModal: Function;
+  initFields: InitField[];
 }
-// Import Vietnamese locale from date-fns
-
-// Register the Vietnamese locale globally
-registerLocale("vi", vi);
-
-// Set default locale for react-datepicker
-setDefaultLocale("vi");
-
 const DateTimeInput = ({ field, form, ...props }) => {
   return (
     <div>
@@ -40,7 +31,6 @@ const DateTimeInput = ({ field, form, ...props }) => {
         timeIntervals={15} // Adjust as needed
         dateFormat="dd/MM/yyyy HH:mm"
       />
-      {/* <ErrorMessage name={field.name} component="div" className="error" /> */}
     </div>
   );
 };
@@ -54,15 +44,14 @@ const DateDayInput = ({ field, form, ...props }) => {
         onChange={(val) => form.setFieldValue(field.name, val)}
         dateFormat="dd/MM/yyyy"
       />
-      {/* <ErrorMessage name={field.name} component="div" className="error" /> */}
     </div>
   );
 };
-const Modify: React.FC<ModifyProps> = ({
+const Create: React.FC<CreateProps> = ({
   fields,
-  entity,
-  closeModifyModal,
   handleSubmit,
+  closeCreateModal,
+  initFields,
 }) => {
   const {
     isModalOpen: isConfirmModal,
@@ -72,20 +61,91 @@ const Modify: React.FC<ModifyProps> = ({
   const handleCloseModify = () => {
     openConfirmModal();
   };
+  const dateValidation = (value) => {
+    const fieldValue = new Date(value);
+    const now = new Date();
+    return fieldValue < now
+      ? "Thời gian phải lớn hơn thời gian hiện tại"
+      : undefined;
+  };
+  const textValidation = (field) => {
+    return (value) => {
+      return value
+        ? undefined
+        : `Trường ${field.fieldDisplay.toLowerCase()} là bắt buộc`;
+    };
+  };
   let initialValues: any = {};
 
   fields.forEach((field) => {
     // Initialize based on existing values for update operation
-    initialValues[field.fieldName] = entity[field.fieldName];
+    switch (field.type) {
+      case "text":
+      case "textarea":
+        initialValues[field.fieldName] = ""; // You can set the default value for text and textarea
+        break;
+      case "image":
+        initialValues[field.fieldName] = null; // You can set the default value for image
+        break;
+      case "datetime":
+      case "dateday":
+        initialValues[field.fieldName] = "";
+        //  parseISO(new Date().toISOString()); // You can set the default value for date
+        break;
+      case "boolean":
+        initialValues[field.fieldName] = true;
+      default:
+        initialValues[field.fieldName] = "";
+    }
   });
-  const handleScale = (textarea) => {
+  initFields.forEach((field) => {
+    initialValues[field.fieldName] = field.fieldValue;
+  });
+  const handleScale = useCallback((textarea) => {
     if (textarea) {
-      textarea.style.height = "auto"; // Reset height to auto to correctly calculate scroll height
+      textarea.style.height = "auto";
       textarea.style.height = textarea.scrollHeight + "px";
     }
-  };
+  }, []);
   const handleEnter = () => {
-    document.querySelectorAll(".autoScaleTextarea").forEach(handleScale);
+    document.querySelectorAll(".autoScaleTextarea").forEach((textarea) => {
+      handleScale(textarea);
+    });
+  };
+  const handleSubmitClick = async (values) => {
+    if (fields.some((field) => field.type === "image")) {
+      const formData = new FormData();
+      fields.forEach((field) => {
+        if (field.type !== "image")
+          formData.append(field.fieldName, values[field.fieldName]);
+        else if (values[field.fieldName])
+          formData.append(field.fieldName, values[field.fieldName]);
+      });
+
+      try {
+        console.log(formData);
+        dispatch(setLoading(true));
+        await handleSubmit(formData);
+        dispatch(setLoading(false));
+        dispatch(setNotification("success"));
+        closeCreateModal();
+      } catch (error) {
+        dispatch(setNotification("error"));
+        closeCreateModal();
+      }
+    } else {
+      try {
+        console.log(values);
+        dispatch(setLoading(true));
+        await handleSubmit(values);
+        dispatch(setLoading(false));
+        dispatch(setNotification("success"));
+        closeCreateModal();
+      } catch (error) {
+        dispatch(setNotification("error"));
+        closeCreateModal();
+      }
+    }
   };
   const imagePicker = useRef(null);
   const dispatch: AppDispatch = useDispatch();
@@ -97,9 +157,8 @@ const Modify: React.FC<ModifyProps> = ({
         if (field.needValidated) {
           validationFunction = (value) => {
             if (field.type === "datetime" || field.type === "dateday") {
-              const now = new Date();
               const fieldValue = new Date(value);
-
+              const now = new Date();
               return fieldValue < now
                 ? "Thời gian phải lớn hơn thời gian hiện tại"
                 : undefined;
@@ -173,7 +232,7 @@ const Modify: React.FC<ModifyProps> = ({
                 field={field}
                 choosen={field.choosen}
                 setFieldValue={setFieldValue}
-                fieldValue={entity[field.fieldName]}
+                fieldValue={""}
               />
             );
           } else
@@ -205,7 +264,7 @@ const Modify: React.FC<ModifyProps> = ({
                 name={field.fieldName}
                 className="modal-input"
                 component={DateTimeInput}
-                validate={validationFunction}
+                validate={field.needValidated ? dateValidation : undefined}
               />
               <ErrorMessage
                 name={field.fieldName}
@@ -224,7 +283,7 @@ const Modify: React.FC<ModifyProps> = ({
                 name={field.fieldName}
                 className="modal-input"
                 component={DateDayInput}
-                validate={validationFunction}
+                validate={field.needValidated ? dateValidation : undefined}
               />
               <ErrorMessage
                 name={field.fieldName}
@@ -245,7 +304,12 @@ const Modify: React.FC<ModifyProps> = ({
                   <FaImages />
                 </label>
                 <div className="overview-img ">
-                  <img src={entity[field.fieldName]} alt="" />
+                  <img
+                    src={
+                      "https://cdn.vectorstock.com/i/preview-1x/65/30/default-image-icon-missing-picture-page-vector-40546530.jpg"
+                    }
+                    alt=""
+                  />
                 </div>
               </div>
 
@@ -266,7 +330,7 @@ const Modify: React.FC<ModifyProps> = ({
           );
         } else if (field.type === "textarea") {
           renderFields.push(
-            <div className="modal-data">
+            <div className="modal-data" key={field.fieldName}>
               <label htmlFor={field.fieldName} className="modal-label">
                 {field.fieldDisplay}
               </label>
@@ -274,9 +338,13 @@ const Modify: React.FC<ModifyProps> = ({
                 as="textarea"
                 name={field.fieldName}
                 className="modal-input autoScaleTextarea"
-                onInput={handleScale(this)}
+                onInput={() =>
+                  handleScale(document.querySelector(".autoScaleTextarea"))
+                }
                 onKeyDown={handleEnter}
-                validate={validationFunction}
+                validate={
+                  field.needValidated ? textValidation(field) : undefined
+                }
               />
               <ErrorMessage
                 name={field.fieldName}
@@ -308,8 +376,9 @@ const Modify: React.FC<ModifyProps> = ({
                 as="select" // Use "as" prop to specify the HTML element
                 name={field.fieldName}
                 className="modal-input"
+                onChange={(e) => setFieldValue(field.fieldName, e.target.value)}
+                defaultValue="MALE"
               >
-                {/* Add your select options here */}
                 {field.fieldName === "gender" && (
                   <>
                     <option value="MALE">Nam</option>
@@ -332,8 +401,6 @@ const Modify: React.FC<ModifyProps> = ({
                     <option value={5}>5</option>
                   </>
                 )}
-
-                {/* Add more options as needed */}
               </FieldForm>
             </div>
           );
@@ -342,50 +409,25 @@ const Modify: React.FC<ModifyProps> = ({
     });
     return renderFields;
   };
-  const handleSubmitClick = async (values) => {
-    if (fields.some((field) => field.type === "image")) {
-      let formData = new FormData();
-      fields.forEach((field) => {
-        if (field.type !== "image")
-          formData.append(field.fieldName, values[field.fieldName]);
-        else if (values[field.fieldName])
-          formData.append(field.fieldName, values[field.fieldName]);
-        else formData.append(field.fieldName, "");
-      });
-
-      try {
-        console.log(formData);
-        dispatch(setLoading(true));
-        await handleSubmit({
-          id: entity.id,
-          value: formData,
-        });
-        dispatch(setLoading(false));
-        dispatch(setNotification("success"));
-        closeModifyModal();
-      } catch (error) {
-        dispatch(setNotification("error"));
-        closeModifyModal();
-      }
-    } else {
-      try {
-        dispatch(setLoading(true));
-        await handleSubmit({
-          id: entity.id,
-          value: values,
-        });
-        dispatch(setLoading(false));
-        dispatch(setNotification("success"));
-        closeModifyModal();
-      } catch (error) {
-        dispatch(setLoading(false));
-        dispatch(setNotification("error"));
-        closeModifyModal();
-      }
-    }
-  };
+  //   const handleSubmit = (values) => {
+  //     // if (fields.some((field) => field.type === "image")) {
+  //     //   const formData = new FormData();
+  //     //   fields.forEach((field) => {
+  //     //     if (field.type !== "image")
+  //     //       formData.append(field.fieldName, values[field.fieldName]);
+  //     //     else if (values[field.fieldName])
+  //     //       formData.append(field.fieldName, values[field.fieldName]);
+  //     //   });
+  //     //   handleSubmit(formData);
+  //     // } else handleSubmit(values);
+  //     console.log(values);
+  //   };
+  useEffect(() => {
+    const textarea = document.querySelector(".autoScaleTextarea");
+    handleScale(textarea);
+  }, []);
   return (
-    <div className="modify modal-container">
+    <div className="modify modal-container" style={{ zIndex: 99999 }}>
       <div className="modal-wrapper">
         <div className="modal modify-modal">
           <Formik
@@ -396,7 +438,7 @@ const Modify: React.FC<ModifyProps> = ({
               <Form>
                 {renderField(setFieldValue)}
                 <button type="submit" className="modal-button">
-                  Thay đổi
+                  Tạo
                 </button>
                 <button
                   type="button"
@@ -408,19 +450,21 @@ const Modify: React.FC<ModifyProps> = ({
               </Form>
             )}
           </Formik>
-          <FaTimes className="modal-close" onClick={handleCloseModify} />
+          <FaTimes
+            className="modal-close"
+            onClick={() => handleCloseModify()}
+          />
         </div>
+        {isConfirmModal && (
+          <ConfirmModal
+            type="MODIFY"
+            closeConfirmModal={closeConfirmModal}
+            closeModifyModal={closeCreateModal}
+            deleteFunction={null}
+          />
+        )}
       </div>
-      {isConfirmModal && (
-        <ConfirmModal
-          type="MODIFY"
-          closeConfirmModal={closeConfirmModal}
-          closeModifyModal={closeModifyModal}
-          deleteFunction={null}
-        />
-      )}
     </div>
   );
 };
-
-export default Modify;
+export default Create;

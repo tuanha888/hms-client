@@ -40,7 +40,7 @@ const DateTimeInput = ({ field, form, ...props }) => {
         timeIntervals={15} // Adjust as needed
         dateFormat="dd/MM/yyyy HH:mm"
       />
-      {/* <ErrorMessage name={field.name} component="div" className="error" /> */}
+      <ErrorMessage name={field.name} component="div" className="error" />
     </div>
   );
 };
@@ -54,7 +54,7 @@ const DateDayInput = ({ field, form, ...props }) => {
         onChange={(val) => form.setFieldValue(field.name, val)}
         dateFormat="dd/MM/yyyy"
       />
-      {/* <ErrorMessage name={field.name} component="div" className="error" /> */}
+      <ErrorMessage name={field.name} component="div" className="error" />
     </div>
   );
 };
@@ -87,46 +87,26 @@ const Modify: React.FC<ModifyProps> = ({
   const handleEnter = () => {
     document.querySelectorAll(".autoScaleTextarea").forEach(handleScale);
   };
+  const dateValidation = (value) => {
+    const fieldValue = new Date(value);
+    const now = new Date();
+    return fieldValue > now
+      ? "Thời gian phải lớn hơn thời gian hiện tại"
+      : undefined;
+  };
+  const textValidation = (field) => {
+    return (value) => {
+      return value
+        ? undefined
+        : `Trường ${field.fieldDisplay.toLowerCase()} là bắt buộc`;
+    };
+  };
   const imagePicker = useRef(null);
   const dispatch: AppDispatch = useDispatch();
   const renderField = (setFieldValue) => {
     const renderFields: ReactNode[] = [];
     fields.forEach((field) => {
       if (field.modifyDisplay) {
-        let validationFunction;
-        if (field.needValidated) {
-          validationFunction = (value) => {
-            if (field.type === "datetime" || field.type === "dateday") {
-              const now = new Date();
-              const fieldValue = new Date(value);
-
-              return fieldValue < now
-                ? "Thời gian phải lớn hơn thời gian hiện tại"
-                : undefined;
-            } else if (field.type === "text" || field.type === "textarea") {
-              return value
-                ? undefined
-                : `Trường ${field.fieldDisplay.toLowerCase()} là bắt buộc`;
-            }
-
-            return undefined;
-          };
-          if (field.fieldName === "birthday")
-            validationFunction = (value) => {
-              const fieldValue = new Date(value);
-              const now = new Date();
-              return fieldValue > now
-                ? "Ngày sinh phải bé hơn hiện tại"
-                : undefined;
-            };
-          if (field.fieldName === "phoneNumber") {
-            validationFunction = (value) => {
-              return value.trim().length !== 10
-                ? "Số điện thoại phải có 10 chữ số"
-                : undefined;
-            };
-          }
-        }
         if (field.type === "text") {
           if (field.choosen !== null) {
             // const renderChoosen = () => {
@@ -186,7 +166,9 @@ const Modify: React.FC<ModifyProps> = ({
                   type="text"
                   name={field.fieldName}
                   className="modal-input"
-                  validate={validationFunction}
+                  validate={
+                    field.needValidated ? textValidation(field) : undefined
+                  }
                 />
                 <ErrorMessage
                   name={field.fieldName}
@@ -205,7 +187,7 @@ const Modify: React.FC<ModifyProps> = ({
                 name={field.fieldName}
                 className="modal-input"
                 component={DateTimeInput}
-                validate={validationFunction}
+                validate={field.needValidated ? dateValidation : undefined}
               />
               <ErrorMessage
                 name={field.fieldName}
@@ -224,7 +206,7 @@ const Modify: React.FC<ModifyProps> = ({
                 name={field.fieldName}
                 className="modal-input"
                 component={DateDayInput}
-                validate={validationFunction}
+                validate={field.needValidated ? dateValidation : undefined}
               />
               <ErrorMessage
                 name={field.fieldName}
@@ -276,7 +258,9 @@ const Modify: React.FC<ModifyProps> = ({
                 className="modal-input autoScaleTextarea"
                 onInput={handleScale(this)}
                 onKeyDown={handleEnter}
-                validate={validationFunction}
+                validate={
+                  field.needValidated ? textValidation(field) : undefined
+                }
               />
               <ErrorMessage
                 name={field.fieldName}

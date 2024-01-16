@@ -57,7 +57,6 @@ const AutoComplete = ({ field, choosen, fieldValue, setFieldValue }) => {
         className="modal-input"
         onChange={handleChange}
         value={inputValue}
-        validate={validationFunction}
       />
       <ErrorMessage
         name={field.fieldName}

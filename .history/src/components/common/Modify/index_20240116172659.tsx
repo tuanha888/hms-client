@@ -95,22 +95,6 @@ const Modify: React.FC<ModifyProps> = ({
       if (field.modifyDisplay) {
         let validationFunction;
         if (field.needValidated) {
-          validationFunction = (value) => {
-            if (field.type === "datetime" || field.type === "dateday") {
-              const now = new Date();
-              const fieldValue = new Date(value);
-
-              return fieldValue < now
-                ? "Thời gian phải lớn hơn thời gian hiện tại"
-                : undefined;
-            } else if (field.type === "text" || field.type === "textarea") {
-              return value
-                ? undefined
-                : `Trường ${field.fieldDisplay.toLowerCase()} là bắt buộc`;
-            }
-
-            return undefined;
-          };
           if (field.fieldName === "birthday")
             validationFunction = (value) => {
               const fieldValue = new Date(value);
@@ -126,6 +110,21 @@ const Modify: React.FC<ModifyProps> = ({
                 : undefined;
             };
           }
+          validationFunction = (value) => {
+            if (field.type === "datetime" || field.type === "dateday") {
+              const fieldValue = new Date(value);
+              const now = new Date();
+              return fieldValue < now
+                ? "Thời gian phải lớn hơn thời gian hiện tại"
+                : undefined;
+            } else if (field.type === "text" || field.type === "textarea") {
+              return value
+                ? undefined
+                : `Trường ${field.fieldDisplay.toLowerCase()} là bắt buộc`;
+            }
+
+            return undefined;
+          };
         }
         if (field.type === "text") {
           if (field.choosen !== null) {
