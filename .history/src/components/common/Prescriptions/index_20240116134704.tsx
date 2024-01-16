@@ -31,9 +31,7 @@ const Prescriptions: React.FC<PrescriptionsProps> = ({ id, isMargin }) => {
   };
   return (
     <>
-      <ul className={`prescriptions ${isMargin ? "layout" : ""}`}>
-        {isFetched && renderPrescription()}
-      </ul>
+      <ul className={`prescriptions ${isMargin ? "layout" ? ""}`}>{isFetched && renderPrescription()}</ul>
     </>
   );
 };

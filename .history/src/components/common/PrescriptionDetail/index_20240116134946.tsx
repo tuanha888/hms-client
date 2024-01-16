@@ -198,12 +198,10 @@ const PrescriptionDetail: React.FC<PrescriptionDetailProps> = ({
       <div className="modal-container">
         <div className="modal-wrapper">
           <div className="modal">
-            {openDetailEdit && (
-              <p className="modal-item overview-item">
-                <span className="modal-field overview-field">Bệnh nhân:</span>{" "}
-                <span>{pres.patientName}</span>
-              </p>
-            )}
+            <p className="modal-item overview-item">
+              <span className="modal-field overview-field">Bệnh nhân:</span>{" "}
+              <span>{pres.patientName}</span>
+            </p>
             <p className="modal-item overview-item">
               <span className="modal-field overview-field">Bác sĩ:</span>{" "}
               <ViewDetail doctorId={pres.doctorId} patientId={null} />
