@@ -2,6 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { fakePrescriptions } from "../fake-api/prescription-api";
 import axios from "axios";
 import { HOST_URL, convertDatesToObjects } from "./config";
+import { toast } from "react-toastify";
 
 
 export const getPrescriptionOfPatient = createAsyncThunk(
@@ -29,9 +30,12 @@ export const createPrescription = createAsyncThunk(
                 Authorization: `Bearer ${accessToken}`
             }
         })
-        if (response.status < 200 || response.status >=300) {
+        if (response.status < 200 || response.status >= 300) {
+            toast.error("Thất bại!")
             rejectWithValue(response);
+            
         }
+        toast.success("Thành công!")
         return convertDatesToObjects(response.data);;
     }
 )
@@ -48,9 +52,12 @@ export const updatePrescription = createAsyncThunk(
                 Authorization: `Bearer ${accessToken}`
             }
         })
-        if (response.status < 200 || response.status >=300) {
+        if (response.status < 200 || response.status >= 300) {
+            toast.error("Thất bại!")
             rejectWithValue(response);
+            
         }
+        toast.success("Thành công!")
         return convertDatesToObjects(response.data);
     }
 )
@@ -64,9 +71,12 @@ export const deletePrescription = createAsyncThunk(
                 Authorization: `Bearer ${accessToken}`
             }
         })
-        if (response.status < 200 || response.status >=300) {
+        if (response.status < 200 || response.status >= 300) {
+            toast.error("Thất bại!")
             rejectWithValue(response);
+            
         }
+        toast.success("Thành công!")
         return id;
     }
 )

@@ -1,6 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { HOST_URL } from "./config";
 import axios from 'axios'
+import { toast } from "react-toastify";
 
 export interface LoginProps {
     username: string,
@@ -50,8 +51,11 @@ export const ChangePasswordAPI = createAsyncThunk(
                 Authorization: `Bearer ${accessToken}`,
             }
         })
-        if (response.status < 200 || response.status >=300) {
-            return rejectWithValue(response);
+        if (response.status < 200 || response.status >= 300) {
+            toast.error("Thất bại!")
+            rejectWithValue(response);
+            
         }
+        toast.success("Thành công!")
     }
 )

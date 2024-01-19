@@ -1,6 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { HOST_URL, convertDatesToObjects } from "./config";
+import { toast } from "react-toastify";
 
 
 export const getTreatmentPlanOfPatients = createAsyncThunk(
@@ -28,9 +29,12 @@ export const createTreatmentPlan = createAsyncThunk(
                 Authorization: `Bearer ${accessToken}`
             }
         })
-        if (response.status < 200 || response.status >=300) {
+        if (response.status < 200 || response.status >= 300) {
+            toast.error("Thất bại!")
             rejectWithValue(response);
+            
         }
+        toast.success("Thành công!")
         return convertDatesToObjects(response.data);;
     }
 )
@@ -47,9 +51,12 @@ export const updateTreatmentPlan = createAsyncThunk(
                 Authorization: `Bearer ${accessToken}`
             }
         })
-        if (response.status < 200 || response.status >=300) {
+        if (response.status < 200 || response.status >= 300) {
+            toast.error("Thất bại!")
             rejectWithValue(response);
+            
         }
+        toast.success("Thành công!")
         return convertDatesToObjects(response.data);;
     }
 )
@@ -63,9 +70,12 @@ export const deleteTreatmentPlan = createAsyncThunk(
                 Authorization: `Bearer ${accessToken}`
             }
         })
-        if (response.status < 200 || response.status >=300) {
+        if (response.status < 200 || response.status >= 300) {
+            toast.error("Thất bại!")
             rejectWithValue(response);
+            
         }
+        toast.success("Thành công!")
         return id;
     }
 )

@@ -2,6 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { fakeAppointments } from "../fake-api/appointment-api";
 import axios from "axios";
 import { HOST_URL, convertDatesToObjects } from "./config";
+import { toast } from "react-toastify";
 
 interface AppointmentRequest {
     doctorId: string,
@@ -52,8 +53,11 @@ export const createAppointment = createAsyncThunk(
             }
         })
         if (response.status < 200 || response.status >= 300) {
+            toast.error("Thất bại!")
             rejectWithValue(response);
+            
         }
+        toast.success("Thành công!")
         return convertDatesToObjects(response.data);;
     }
 )
@@ -71,8 +75,11 @@ export const updateAppointment = createAsyncThunk(
             }
         })
         if (response.status < 200 || response.status >= 300) {
+            toast.error("Thất bại!")
             rejectWithValue(response);
+            
         }
+        toast.success("Thành công!")
         return convertDatesToObjects(response.data);
     }
 )
@@ -87,8 +94,11 @@ export const deleteAppointment = createAsyncThunk(
             }
         })
         if (response.status < 200 || response.status >= 300) {
+            toast.error("Thất bại!")
             rejectWithValue(response);
+            
         }
+        toast.success("Thành công!")
         return id;
     }
 )
@@ -102,8 +112,11 @@ export const rejectAppoitment = createAsyncThunk(
             }
         })
         if (response.status < 200 || response.status >= 300) {
+            toast.error("Thất bại!")
             rejectWithValue(response);
+            
         }
+        toast.success("Thành công!")
         return id;
     }
 )
@@ -117,8 +130,11 @@ export const acceptAppoitment = createAsyncThunk(
             }
         })
         if (response.status < 200 || response.status >= 300) {
+            toast.error("Thất bại!")
             rejectWithValue(response);
+            
         }
+        toast.success("Thành công!")
         return id;
     }
 )

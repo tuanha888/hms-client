@@ -21,11 +21,14 @@ import Notification from "./components/common/Notification";
 import DisplayUser from "./components/common/DisplayUser";
 import Chat from "./components/common/Chat";
 import TreatmentPlans from "./components/common/TreatmentPlans";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 function App() {
   return (
     <div className="wrapper">
       {/* <Notification /> */}
       <Loading />
+      <ToastContainer className="notification" />
       <Router>
         <Routes>
           <Route

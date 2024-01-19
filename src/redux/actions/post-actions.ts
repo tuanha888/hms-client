@@ -2,6 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { HOST_URL, convertDatesToObjects } from "./config";
 import { getPostsAPI } from "../fake-api/posts-api";
+import { toast } from "react-toastify";
 
 
 
@@ -48,9 +49,12 @@ export const createPost = createAsyncThunk(
                 Authorization: `Bearer ${accessToken}`
             }
         })
-        if (response.status < 200 || response.status >=300) {
+        if (response.status < 200 || response.status >= 300) {
+            toast.error("Thất bại!")
             rejectWithValue(response);
+            
         }
+        toast.success("Thành công!")
         return convertDatesToObjects(response.data);;
     }
 )
@@ -70,9 +74,12 @@ export const updatePost = createAsyncThunk(
                 Authorization: `Bearer ${accessToken}`
             }
         })
-        if (response.status < 200 || response.status >=300) {
+        if (response.status < 200 || response.status >= 300) {
+            toast.error("Thất bại!")
             rejectWithValue(response);
+            
         }
+        toast.success("Thành công!")
         return convertDatesToObjects(response.data);;
     }
 )
@@ -86,9 +93,12 @@ export const deletePost = createAsyncThunk(
                 Authorization: `Bearer ${accessToken}`
             }
         })
-        if (response.status < 200 || response.status >=300) {
+        if (response.status < 200 || response.status >= 300) {
+            toast.error("Thất bại!")
             rejectWithValue(response);
+            
         }
+        toast.success("Thành công!")
         return id;
     }
 )

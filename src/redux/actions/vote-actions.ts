@@ -3,6 +3,7 @@ import { getVotesOfDoctorAPI } from "../fake-api/vote-api";
 import { HOST_URL, convertDatesToObjects } from "./config";
 import axios from "axios";
 import { Vote } from "../features/voteSlice";
+import { toast } from "react-toastify";
 
 
 export const getDoctorVotes = createAsyncThunk(
@@ -30,9 +31,12 @@ export const addVote = createAsyncThunk(
                 Authorization: `Bearer ${accessToken}`
             }
         })
-        if (response.status < 200 || response.status >=300) {
+        if (response.status < 200 || response.status >= 300) {
+            toast.error("Thất bại!")
             rejectWithValue(response);
+            
         }
+        toast.success("Thành công!")
         return response.data;
     }
 )
@@ -50,9 +54,12 @@ export const updateVote = createAsyncThunk(
                 Authorization: `Bearer ${accessToken}`
             }
         })
-        if (response.status < 200 || response.status >=300) {
+        if (response.status < 200 || response.status >= 300) {
+            toast.error("Thất bại!")
             rejectWithValue(response);
+            
         }
+        toast.success("Thành công!")
         return convertDatesToObjects(response.data);
     }
 )
@@ -66,9 +73,12 @@ export const deleteVote = createAsyncThunk(
                 Authorization: `Bearer ${accessToken}`
             }
         })
-        if (response.status < 200 || response.status >=300) {
+        if (response.status < 200 || response.status >= 300) {
+            toast.error("Thất bại!")
             rejectWithValue(response);
+            
         }
+        toast.success("Thành công!")
         return id;
     }
 )

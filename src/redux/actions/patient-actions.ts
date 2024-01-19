@@ -3,6 +3,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { getPatientAPI } from "../fake-api/patient-api";
 import axios from "axios";
 import { HOST_URL, convertDatesToObjects } from "./config";
+import { toast } from "react-toastify";
 
 
 export const getPatient = createAsyncThunk(
@@ -68,9 +69,12 @@ export const createPatient = createAsyncThunk(
                 Authorization: `Bearer ${accessToken}`
             }
         })
-        if (response.status < 200 || response.status >=300) {
+        if (response.status < 200 || response.status >= 300) {
+            toast.error("Thất bại!")
             rejectWithValue(response);
+            
         }
+        toast.success("Thành công!")
         return convertDatesToObjects(response.data);;
     }
 )
@@ -89,9 +93,12 @@ export const updatePatient = createAsyncThunk(
                 Authorization: `Bearer ${accessToken}`
             }
         })
-        if (response.status < 200 || response.status >=300) {
+        if (response.status < 200 || response.status >= 300) {
+            toast.error("Thất bại!")
             rejectWithValue(response);
+            
         }
+        toast.success("Thành công!")
         return convertDatesToObjects(response.data);;
     }
 )
@@ -105,9 +112,12 @@ export const deletePatient = createAsyncThunk(
                 Authorization: `Bearer ${accessToken}`
             }
         })
-        if (response.status < 200 || response.status >=300) {
+        if (response.status < 200 || response.status >= 300) {
+            toast.error("Thất bại!")
             rejectWithValue(response);
+            
         }
+        toast.success("Thành công!")
         return id;
     }
         

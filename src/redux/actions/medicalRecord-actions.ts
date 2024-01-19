@@ -2,6 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { getMedicalRecords } from "../fake-api/medicalRecord-api";
 import axios from "axios";
 import { HOST_URL, convertDatesToObjects } from "./config";
+import { toast } from "react-toastify";
 
 
 export const getMedicalRecord = createAsyncThunk(
@@ -38,9 +39,11 @@ export const createMedicalRecord = createAsyncThunk(
                 Authorization: `Bearer ${accessToken}`
             }
         })
-        if (response.status < 200 || response.status >=300) {
+        if (response.status < 200 || response.status >= 300) {
             rejectWithValue(response);
+            toast.error("Thất bại!")
         }
+        toast.success("Thành công!")
         return convertDatesToObjects(response.data);;
     }
 )
@@ -57,9 +60,11 @@ export const updateMedicalRecord = createAsyncThunk(
                 Authorization: `Bearer ${accessToken}`
             }
         })
-        if (response.status < 200 || response.status >=300) {
+        if (response.status < 200 || response.status >= 300) {
             rejectWithValue(response);
+            toast.error("Thất bại!")
         }
+        toast.success("Thành công!")
         return convertDatesToObjects(response.data);;
     }
 
@@ -73,9 +78,11 @@ export const deleteMedicalRecord = createAsyncThunk(
                 Authorization: `Bearer ${accessToken}`
             }
         })
-        if (response.status < 200 || response.status >=300) {
+        if (response.status < 200 || response.status >= 300) {
             rejectWithValue(response);
+            toast.error("Thất bại!")
         }
+        toast.success("Thành công!")
         return id;
     }
 )
