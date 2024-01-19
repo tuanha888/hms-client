@@ -45,17 +45,18 @@ export const Logout = createAsyncThunk(
 export const ChangePasswordAPI = createAsyncThunk(
     'change-password',
     async (data : ChangePassword, {rejectWithValue}) => {
-        const accessToken = localStorage.getItem('accessToken');
+        try {
+            const accessToken = localStorage.getItem('accessToken');
         const response = await axios.put(`${HOST_URL}/auth/api/change_password`, data, {
             headers: {
                 Authorization: `Bearer ${accessToken}`,
             }
         })
-        if (response.status < 200 || response.status >= 300) {
-            toast.error("Thất bại!")
-            rejectWithValue(response);
-            
-        }
         toast.success("Thành công!")
+        } catch (error) {
+            toast.error("Thất bại!")
+            return rejectWithValue(error);
+        }
+        
     }
 )

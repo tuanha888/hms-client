@@ -35,7 +35,15 @@ const Patients = () => {
   const [patients, setPatients] = useState([]);
   const fields: Field[] = patientFields;
   useEffect(() => {
-    setPatients([]);
+    setPatients(
+      find(
+        {
+          field: "name",
+          condition: patientName,
+        },
+        patientsState
+      )
+    );
   }, [patientsState]);
   const handleChangeName = (e: any) => {
     setPatientName(e.target.value);

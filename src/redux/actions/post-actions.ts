@@ -43,19 +43,20 @@ export const getPostsOfDoctor = createAsyncThunk(
 export const createPost = createAsyncThunk(
     'create-post',
     async (data: any, {rejectWithValue}) => {
-        const accessToken = localStorage.getItem("accessToken");
-        const response = await axios.post(`${HOST_URL}/api/posts`, data,{
+        try {
+            const accessToken = localStorage.getItem("accessToken");
+            const response = await axios.post(`${HOST_URL}/api/posts`, data,{
             headers: {
                 Authorization: `Bearer ${accessToken}`
             }
-        })
-        if (response.status < 200 || response.status >= 300) {
+            })
+            toast.success("Thành công!")
+            return convertDatesToObjects(response.data);;
+        } catch (error) {
             toast.error("Thất bại!")
-            rejectWithValue(response);
-            
+            return rejectWithValue(error);
         }
-        toast.success("Thành công!")
-        return convertDatesToObjects(response.data);;
+        
     }
 )
 
@@ -69,36 +70,36 @@ export const updatePost = createAsyncThunk(
         const image = data.value.get("cover")
         if (typeof image === "string") data.value.set("cover", emptyImage)
         const accessToken = localStorage.getItem("accessToken");
-        const response = await axios.put(`${HOST_URL}/api/posts/${data.id}`, data.value,{
-            headers: {
-                Authorization: `Bearer ${accessToken}`
-            }
-        })
-        if (response.status < 200 || response.status >= 300) {
+        try {
+            const response = await axios.put(`${HOST_URL}/api/posts/${data.id}`, data.value,{
+                headers: {
+                    Authorization: `Bearer ${accessToken}`
+                }
+            })
+            toast.success("Thành công!")
+            return convertDatesToObjects(response.data);;
+        } catch (error) {
             toast.error("Thất bại!")
-            rejectWithValue(response);
-            
+            return rejectWithValue(error);
         }
-        toast.success("Thành công!")
-        return convertDatesToObjects(response.data);;
     }
 )
 
 export const deletePost = createAsyncThunk(
     'delete-post',
     async (id: string, {rejectWithValue} ) => {
-        const accessToken = localStorage.getItem("accessToken");
-        const response = await axios.delete(`${HOST_URL}/api/posts/${id}`,{
-            headers: {
-                Authorization: `Bearer ${accessToken}`
-            }
-        })
-        if (response.status < 200 || response.status >= 300) {
+        try {
+            const accessToken = localStorage.getItem("accessToken");
+            const response = await axios.delete(`${HOST_URL}/api/posts/${id}`,{
+                headers: {
+                    Authorization: `Bearer ${accessToken}`
+                }
+            })
+            toast.success("Thành công!")
+            return id;
+        } catch (error) {
             toast.error("Thất bại!")
-            rejectWithValue(response);
-            
+            return rejectWithValue(error);
         }
-        toast.success("Thành công!")
-        return id;
     }
 )

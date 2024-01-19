@@ -46,19 +46,21 @@ export const createAppointment = createAsyncThunk(
     'create-appointment',
     async (data: any, { rejectWithValue }) => {
         console.log(data)
-        const accessToken = localStorage.getItem("accessToken");
-        const response = await axios.post(`${HOST_URL}/api/appointments/`, data, {
-            headers: {
-                Authorization: `Bearer ${accessToken}`
-            }
-        })
-        if (response.status < 200 || response.status >= 300) {
+        try {
+            const accessToken = localStorage.getItem("accessToken");
+            const response = await axios.post(`${HOST_URL}/api/appointments/`, data, {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`
+                }
+            })
+            toast.success("Thành công!")
+            return convertDatesToObjects(response.data);;
+        } catch (error) {
             toast.error("Thất bại!")
-            rejectWithValue(response);
-            
+            return rejectWithValue(error);
         }
-        toast.success("Thành công!")
-        return convertDatesToObjects(response.data);;
+
+        
     }
 )
 export const updateAppointment = createAsyncThunk(
@@ -68,73 +70,77 @@ export const updateAppointment = createAsyncThunk(
         value: any
     }, { rejectWithValue }) => {
         console.log(data.value)
-        const accessToken = localStorage.getItem("accessToken");
-        const response = await axios.put(`${HOST_URL}/api/appointments/${data.id}?status=${data.value.status}`, data.value, {
-            headers: {
-                Authorization: `Bearer ${accessToken}`
-            }
-        })
-        if (response.status < 200 || response.status >= 300) {
+        try {
+            const accessToken = localStorage.getItem("accessToken");
+            const response = await axios.put(`${HOST_URL}/api/appointments/${data.id}?status=${data.value.status}`, data.value, {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`
+                }
+            })
+            toast.success("Thành công!")
+            return convertDatesToObjects(response.data);
+        } catch (error) {
             toast.error("Thất bại!")
-            rejectWithValue(response);
-            
+            return rejectWithValue(error);
         }
-        toast.success("Thành công!")
-        return convertDatesToObjects(response.data);
+
     }
 )
 
 export const deleteAppointment = createAsyncThunk(
     'delete-appointment',
     async (id: string, { rejectWithValue }) => {
-        const accessToken = localStorage.getItem("accessToken");
-        const response = await axios.delete(`${HOST_URL}/api/appointments/${id}`, {
-            headers: {
-                Authorization: `Bearer ${accessToken}`
-            }
-        })
-        if (response.status < 200 || response.status >= 300) {
+        try {
+            const accessToken = localStorage.getItem("accessToken");
+            const response = await axios.delete(`${HOST_URL}/api/appointments/${id}`, {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`
+                }
+            })
+            toast.success("Thành công!")
+            return id;
+        } catch (error) {
             toast.error("Thất bại!")
-            rejectWithValue(response);
-            
+            return rejectWithValue(error);
         }
-        toast.success("Thành công!")
-        return id;
+        
     }
 )
 export const rejectAppoitment = createAsyncThunk(
     'reject-appointment',
     async (id: string, {rejectWithValue} )=> {
-        const accessToken = localStorage.getItem("accessToken");
-        const response = await axios.put(`${HOST_URL}/api/appointments/reject/${id}`,{}, {
-            headers: {
-                Authorization: `Bearer ${accessToken}`
-            }
-        })
-        if (response.status < 200 || response.status >= 300) {
+        try {
+            const accessToken = localStorage.getItem("accessToken");
+            const response = await axios.put(`${HOST_URL}/api/appointments/reject/${id}`,{}, {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`
+                }
+            })
+            toast.success("Thành công!")
+            return id;
+        } catch (error) {
             toast.error("Thất bại!")
-            rejectWithValue(response);
-            
+            return rejectWithValue(error);
         }
-        toast.success("Thành công!")
-        return id;
+        
     }
 )
 export const acceptAppoitment = createAsyncThunk(
     'accept-appointment',
     async (id: string, {rejectWithValue} )=> {
-        const accessToken = localStorage.getItem("accessToken");
-        const response = await axios.put(`${HOST_URL}/api/appointments/accept/${id}`,{}, {
-            headers: {
-                Authorization: `Bearer ${accessToken}`
-            }
-        })
-        if (response.status < 200 || response.status >= 300) {
+        try {
+            const accessToken = localStorage.getItem("accessToken");
+            const response = await axios.put(`${HOST_URL}/api/appointments/accept/${id}`,{}, {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`
+                }
+            })
+            toast.success("Thành công!")
+            return id;
+        } catch (error) {
             toast.error("Thất bại!")
-            rejectWithValue(response);
-            
+            return rejectWithValue(error);
         }
-        toast.success("Thành công!")
-        return id;
+    
     }
 )

@@ -41,25 +41,27 @@ export const getDoctors = createAsyncThunk(
 export const createDoctor = createAsyncThunk(
     'create-doctor', 
     async (data: any, {rejectWithValue})=> {
-        const emptyImage : File  = new File([], "hello")
-        const image = data.get("image")
-        if (image === null) data.set("image", emptyImage)
-        let phoneNumber = data.get('phoneNumber')
-        phoneNumber = phoneNumber.replace('0','84')
-        data.set('phoneNumber', phoneNumber)
-        const accessToken = localStorage.getItem("accessToken");
-        const response = await axios.post(`${HOST_URL}/api/doctors/`, data,{
-            headers: {
-                Authorization: `Bearer ${accessToken}`
-            }
-        })
-        if (response.status < 200 || response.status >= 300) {
+        try {
+            const emptyImage : File  = new File([], "hello")
+            const image = data.get("image")
+            if (image === null) data.set("image", emptyImage)
+            let phoneNumber = data.get('phoneNumber')
+            phoneNumber = phoneNumber.replace('0','84')
+            data.set('phoneNumber', phoneNumber)
+            const accessToken = localStorage.getItem("accessToken");
+            const response = await axios.post(`${HOST_URL}/api/doctors/`, data,{
+                headers: {
+                    Authorization: `Bearer ${accessToken}`
+                }
+            })
+            toast.success("Thành công!")
+            return convertDatesToObjects(response.data);
+        } catch (error) {
             toast.error("Thất bại!")
-            rejectWithValue(response);
-            
+            return rejectWithValue(error);
         }
-        toast.success("Thành công!")
-        return convertDatesToObjects(response.data); 
+
+         
     }
 )
 
@@ -70,44 +72,48 @@ export const updateDoctor = createAsyncThunk(
         value: any
     }, {rejectWithValue}) => {
         console.log(data.value)
-        const emptyImage : File  = new File([], "hello")
-        const image = data.value.get("image")
-        if (typeof image === "string") data.value.set("image", emptyImage)
-        let phoneNumber = data.value.get('phoneNumber')
-        phoneNumber = phoneNumber.replace('0','84')
-        data.value.set('phoneNumber', phoneNumber)
-        const accessToken = localStorage.getItem("accessToken");
-        const response = await axios.put(`${HOST_URL}/api/doctors/${data.id}`, data.value,{
-            headers: {
-                Authorization: `Bearer ${accessToken}`,
-                
-            }
-        })
-        if (response.status < 200 || response.status >= 300) {
+        try {
+            const emptyImage : File  = new File([], "hello")
+            const image = data.value.get("image")
+            if (typeof image === "string") data.value.set("image", emptyImage)
+            let phoneNumber = data.value.get('phoneNumber')
+            phoneNumber = phoneNumber.replace('0','84')
+            data.value.set('phoneNumber', phoneNumber)
+            const accessToken = localStorage.getItem("accessToken");
+            const response = await axios.put(`${HOST_URL}/api/doctors/${data.id}`, data.value,{
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                    
+                }
+            })
+            toast.success("Thành công!")
+            return convertDatesToObjects(response.data);
+        } catch (error) {
             toast.error("Thất bại!")
-            rejectWithValue(response);
-            
+            return rejectWithValue(error);
         }
-        toast.success("Thành công!")
-        return convertDatesToObjects(response.data);
+
+        
     }
 )
 
 export const deleteDoctor = createAsyncThunk(
     'delete-doctor',
     async (id: string, {rejectWithValue}) => {
-        const accessToken = localStorage.getItem("accessToken");
-        const response = await axios.delete(`${HOST_URL}/api/doctors/${id}`,{
-            headers: {
-                Authorization: `Bearer ${accessToken}`
-            }
-        })
-        if (response.status < 200 || response.status >= 300) {
+        try {
+            const accessToken = localStorage.getItem("accessToken");
+            const response = await axios.delete(`${HOST_URL}/api/doctors/${id}`,{
+                headers: {
+                    Authorization: `Bearer ${accessToken}`
+                }
+            })
+            toast.success("Thành công!")
+            return id;
+        } catch (error) {
             toast.error("Thất bại!")
-            rejectWithValue(response);
-            
+            return rejectWithValue(error);
         }
-        toast.success("Thành công!")
-        return id;
+
+        
     }
 )

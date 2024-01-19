@@ -61,9 +61,11 @@ export const patientSlice = createSlice({
             
         })
         builder.addCase(updatePatient.fulfilled, (state, action) => {
+            const updatedPatient = action.payload
+            updatedPatient.phoneNumber = updatedPatient.phoneNumber.replace('84', '0');
             state.doctorPatients = state.doctorPatients.map(patient => {
-                if (patient.id !== action.payload.id) return patient
-                else return action.payload
+                if (patient.id !== updatedPatient.id) return patient
+                else return updatedPatient
             })
             state.patients = state.patients.map(patient => {
                 if (patient.id !== action.payload.id) return patient

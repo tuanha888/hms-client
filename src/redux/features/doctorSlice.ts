@@ -45,6 +45,7 @@ export const doctorSlice = createSlice({
         })
         builder.addCase(updateDoctor.fulfilled, (state, action) =>{
             const updatedDoctor = action.payload
+            updatedDoctor.phoneNumber = updatedDoctor.phoneNumber.replace('84','0')
             state.doctors = state.doctors.map(doctor => {
                 if (doctor.id !== updatedDoctor.id) return doctor
                 else return updatedDoctor

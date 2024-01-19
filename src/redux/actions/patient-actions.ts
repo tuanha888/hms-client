@@ -60,22 +60,24 @@ export const createPatient = createAsyncThunk(
     'create-patient',
     async (data: any, {rejectWithValue}) => {
         console.log(data)
-        let phoneNumber = data.phoneNumber
-        phoneNumber = phoneNumber.replace('0','84')
-        data.phoneNumber = phoneNumber
-        const accessToken = localStorage.getItem("accessToken");
-        const response = await axios.post(`${HOST_URL}/api/patients`, data,{
-            headers: {
-                Authorization: `Bearer ${accessToken}`
-            }
-        })
-        if (response.status < 200 || response.status >= 300) {
+        try {
+            let phoneNumber = data.phoneNumber
+            phoneNumber = phoneNumber.replace('0','84')
+            data.phoneNumber = phoneNumber
+            const accessToken = localStorage.getItem("accessToken");
+            const response = await axios.post(`${HOST_URL}/api/patients`, data,{
+                headers: {
+                    Authorization: `Bearer ${accessToken}`
+                }
+            })
+            toast.success("Thành công!")
+            return convertDatesToObjects(response.data);;
+        } catch (error) {
             toast.error("Thất bại!")
-            rejectWithValue(response);
-            
+            return rejectWithValue(error);
         }
-        toast.success("Thành công!")
-        return convertDatesToObjects(response.data);;
+        
+        
     }
 )
 
@@ -85,21 +87,23 @@ export const updatePatient = createAsyncThunk(
         id: string,
         value: any
     }, {rejectWithValue}) => {
-        data.value.phoneNumber = data.value.phoneNumber.replace('0', '84')
-        const accessToken = localStorage.getItem("accessToken");
-        console.log(data.value)
-        const response = await axios.put(`${HOST_URL}/api/patients/${data.id}`, data.value,{
-            headers: {
-                Authorization: `Bearer ${accessToken}`
-            }
-        })
-        if (response.status < 200 || response.status >= 300) {
+        try {
+            data.value.phoneNumber = data.value.phoneNumber.replace('0', '84')
+            const accessToken = localStorage.getItem("accessToken");
+            console.log(data.value)
+            const response = await axios.put(`${HOST_URL}/api/patients/${data.id}`, data.value,{
+                headers: {
+                    Authorization: `Bearer ${accessToken}`
+                }
+            })
+            toast.success("Thành công!")
+            return convertDatesToObjects(response.data);;
+        } catch (error) {
             toast.error("Thất bại!")
-            rejectWithValue(response);
-            
+            return rejectWithValue(error);
         }
-        toast.success("Thành công!")
-        return convertDatesToObjects(response.data);;
+        
+        
     }
 )
 
