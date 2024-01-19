@@ -13,18 +13,8 @@ export function convertDatesToObjects(obj) {
 }
 
 export function isDateInCurrentWeek(time: Date): boolean {
-  const dateWeek = getISOWeek(time);
-  const dateYear = time.getFullYear;
-  const currentYear = (new Date()).getFullYear;
-  const currentWeek = getISOWeek(new Date());
-  return dateWeek === currentWeek && dateYear === currentYear;
-}
-
-function getISOWeek(date: Date): number {
-  const dayOfWeek = date.getUTCDay() || 7; // Sunday is 0, but ISO week starts from Monday (1)
-  date.setUTCDate(date.getUTCDate() + 4 - dayOfWeek); // Move to the Thursday in the current week
-  const startOfYear = new Date(Date.UTC(date.getUTCFullYear(), 0, 1));
-  const weekNumber = Math.ceil(((date.getTime() - startOfYear.getTime()) / 86400000 + 1) / 7);
-
-  return weekNumber;
+  const currentTime = new Date();
+  let sevenDays = new Date(currentTime.getTime());
+  sevenDays.setDate(currentTime.getDate() + 7);
+  return time >= currentTime && time <= sevenDays;
 }
