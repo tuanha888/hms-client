@@ -38,12 +38,12 @@ const Prescription: React.FC<PrescriptionDetailProps> = ({
             <span>{prescription.patientName}</span>
           </p>
         )}
-        {role === "PATIENT" && (
+        {
           <p className="modal-item overview-item">
             <span className="modal-field overview-field">Bác sĩ:</span>{" "}
             <span>{prescription.doctorName}</span>
           </p>
-        )}
+        }
         <p className="modal-item overview-item">
           <span className="modal-field overview-field">Ngày tạo:</span>{" "}
           <span>

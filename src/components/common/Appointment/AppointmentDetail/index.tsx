@@ -100,11 +100,22 @@ const AppointmentDetail: React.FC<DetailProps> = ({
                     ? "Ngoại trú"
                     : "Ở ban ngày"
                   : !field.type.includes("date")
-                  ? entity[field.fieldName]
+                  ? field.viewDetail !== null
+                    ? field.viewDetail(entity)
+                    : entity[field.fieldName]
+                  : field.type === "dateday"
+                  ? entity[field.fieldName].toLocaleDateString("vi", {
+                      day: "2-digit",
+                      month: "2-digit",
+                      year: "numeric",
+                    })
                   : entity[field.fieldName].toLocaleDateString("vi", {
                       day: "2-digit",
                       month: "2-digit",
                       year: "numeric",
+                      hour: "2-digit",
+                      minute: "2-digit",
+                      hour12: false,
                     })}
               </span>
             </p>

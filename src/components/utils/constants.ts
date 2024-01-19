@@ -305,7 +305,7 @@ export const medicalRecordFields : Field[] = [
         choosen: null,
         type: "datetime",
         viewDetail: null,
-        needValidated: true
+        needValidated: false
       },
       {
         fieldName: "outDay",

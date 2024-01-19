@@ -5,14 +5,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../../redux";
 import UserTop from "../../../components/common/UserTop";
 import { useFetchData } from "../../../components/hooks/useFethData";
-import { getDoctor } from "../../../redux/actions/doctor-actions";
+import { getDoctor, getDoctors } from "../../../redux/actions/doctor-actions";
 import { getPatients } from "../../../redux/actions/patient-actions";
 
 const DoctorLayout = () => {
   const user = useSelector((state: RootState) => state.user.user!);
   const dispatch: AppDispatch = useDispatch();
   const isFetched = useFetchData(() => {
-    return Promise.all([dispatch(getDoctor(user.id)), dispatch(getPatients())]);
+    return Promise.all([
+      dispatch(getDoctor(user.id)),
+      dispatch(getPatients()),
+      dispatch(getDoctors()),
+    ]);
   });
   return (
     <>

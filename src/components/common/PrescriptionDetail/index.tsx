@@ -15,6 +15,7 @@ import { AppDispatch } from "../../../redux";
 import { useDispatch } from "react-redux";
 import ConfirmModal from "../ConfirmModal";
 import ViewDetail from "../ViewDetail";
+import { setLoading } from "../../../redux/features/loadingSlice";
 
 interface PrescriptionDetailProps {
   prescription: Prescription;
@@ -149,11 +150,9 @@ const PrescriptionDetail: React.FC<PrescriptionDetailProps> = ({
     medicines: pres.medicines,
   });
   const handleModify = async ({ id, value }) => {
-    await setPres((prevState) => ({
-      ...prevState,
-      note: value.note,
-    }));
+    dispatch(setLoading(true));
     await dispatch(updatePrescription({ id: id, value: prescription }));
+    dispatch(setLoading(false));
   };
   const handleAddMed = (values) => {
     setPres((prevState) => {
@@ -177,6 +176,7 @@ const PrescriptionDetail: React.FC<PrescriptionDetailProps> = ({
       choosen: null,
       type: "textarea",
       viewDetail: null,
+      needValidated: false,
     },
   ];
   const initFields: InitField[] = [
@@ -199,6 +199,14 @@ const PrescriptionDetail: React.FC<PrescriptionDetailProps> = ({
           isOverview={false}
         />
       );
+    });
+  };
+  const handleAddNote = ({ id, value }) => {
+    setPres((prev) => {
+      return {
+        ...prev,
+        note: value.note,
+      };
     });
   };
   return (
@@ -239,7 +247,21 @@ const PrescriptionDetail: React.FC<PrescriptionDetailProps> = ({
             <FaTimes className="modal-close" onClick={closeDetailModal} />
             {openDetailEdit && (
               <>
-                <button className="modal-button" onClick={openModify}>
+                {prescription.note ? (
+                  <button className="modal-button" onClick={openModify}>
+                    Sửa lưu ý
+                  </button>
+                ) : (
+                  <button className="modal-button" onClick={openModify}>
+                    Thêm lưu ý
+                  </button>
+                )}
+                <button
+                  className="modal-button"
+                  onClick={() =>
+                    handleModify({ id: pres.id, value: prescription })
+                  }
+                >
                   Thay đổi
                 </button>
                 <button className="modal-button" onClick={openConfirmModal}>
@@ -253,8 +275,8 @@ const PrescriptionDetail: React.FC<PrescriptionDetailProps> = ({
       {isModifyOpen && (
         <Modify
           fields={fields}
-          handleSubmit={handleModify}
-          entity={pres}
+          handleSubmit={handleAddNote}
+          entity={prescription}
           closeModifyModal={closeModify}
         />
       )}

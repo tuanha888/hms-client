@@ -5,11 +5,10 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 1rem;
-        border-bottom: 2px solid #ccc;
         
     }
-
+    padding: 1rem;
+    border-bottom: 2px solid #ccc;
 
 }
 .votes {
@@ -23,7 +22,9 @@
         margin-top: 1rem;
         border: 2px solid #ccc;
     }
-
+    &-list {
+        padding: 1rem;
+    }
     &-wrapper::-webkit-scrollbar {
         width: 10px;
     }

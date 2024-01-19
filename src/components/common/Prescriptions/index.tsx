@@ -32,7 +32,9 @@ const Prescriptions: React.FC<PrescriptionsProps> = ({ id, isMargin }) => {
   return (
     <>
       <ul className={`prescriptions ${isMargin ? "layout" : ""}`}>
-        {isFetched && renderPrescription()}
+        {isFetched && prescriptions.length !== 0
+          ? renderPrescription()
+          : "Bệnh nhân chưa có đơn thuốc nào"}
       </ul>
     </>
   );
