@@ -96,13 +96,20 @@ const Modify: React.FC<ModifyProps> = ({
         let validationFunction;
         if (field.needValidated) {
           validationFunction = (value) => {
-            if (field.type === "datetime" || field.type === "dateday") {
+            if (field.type === "datetime") {
               const now = new Date();
               const fieldValue = new Date(value);
 
               return fieldValue < now
                 ? "Thời gian phải lớn hơn thời gian hiện tại"
                 : undefined;
+            } else if (field.type === "dateday") {
+              const selectedDate = new Date(value);
+              const currentDate = new Date();
+
+              return selectedDate >= currentDate
+                ? undefined // Valid date
+                : "Ngày phải lớn hơn hoặc bằng ngày hiện tại";
             } else if (field.type === "text" || field.type === "textarea") {
               return value
                 ? undefined
