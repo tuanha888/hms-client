@@ -47,7 +47,7 @@ const PostDetail: React.FC<DetailProps> = ({
             <p className="modal-item">
               <span className="modal-field">{field.fieldDisplay}:</span>{" "}
               {field.type === "textarea" ? (
-                <p>
+                <p className="dcm">
                   {entity[field.fieldName].split("\n").map((line, index) => (
                     <React.Fragment key={index}>
                       {line}

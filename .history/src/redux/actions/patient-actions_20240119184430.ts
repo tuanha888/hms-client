@@ -81,9 +81,11 @@ export const updatePatient = createAsyncThunk(
         id: string,
         value: any
     }, {rejectWithValue}) => {
-        data.value.phoneNumber = data.value.phoneNumber.replace('0', '84')
+        console.log(data)
+        let phoneNumber = data.value.get('phoneNumber')
+        phoneNumber = phoneNumber.replace('0','84')
+        data.value.set('phoneNumber', phoneNumber)
         const accessToken = localStorage.getItem("accessToken");
-        console.log(data.value)
         const response = await axios.put(`${HOST_URL}/api/patients/${data.id}`, data.value,{
             headers: {
                 Authorization: `Bearer ${accessToken}`

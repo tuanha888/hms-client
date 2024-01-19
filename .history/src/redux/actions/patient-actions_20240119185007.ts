@@ -81,6 +81,9 @@ export const updatePatient = createAsyncThunk(
         id: string,
         value: any
     }, {rejectWithValue}) => {
+        console.log(data)
+        let phoneNumber = data.value.phoneNumber
+        phoneNumber = phoneNumber.replace('0','84')
         data.value.phoneNumber = data.value.phoneNumber.replace('0', '84')
         const accessToken = localStorage.getItem("accessToken");
         console.log(data.value)

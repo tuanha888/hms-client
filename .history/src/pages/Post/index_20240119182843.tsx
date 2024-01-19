@@ -4,10 +4,10 @@ import { AppDispatch, RootState } from "../../redux";
 import { useDispatch, useSelector } from "react-redux";
 import { useFetchData } from "../../components/hooks/useFethData";
 import { getPost } from "../../redux/actions/post-actions";
-import { useParams } from "react-router-dom";
-
-const Post = () => {
-  const { id } = useParams();
+interface PostProps {
+  id: string;
+}
+const Post: React.FC<PostProps> = ({ id }) => {
   const dispatch: AppDispatch = useDispatch();
   const post = useSelector((state: RootState) =>
     state.post.posts.filter((post) => post.id === id)
@@ -16,7 +16,7 @@ const Post = () => {
     post !== null
       ? true
       : useFetchData(() => {
-          return dispatch(getPost(id!));
+          return dispatch(getPost(id));
         });
   return (
     <>

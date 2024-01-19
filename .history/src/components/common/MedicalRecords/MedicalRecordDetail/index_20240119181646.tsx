@@ -265,80 +265,27 @@ const MedicalRecordDetail: React.FC<MedicalRecordDetailProps> = ({
               <p className="modal-field overview-field">
                 Chẩn đoán lúc ra viện:
               </p>{" "}
-              <p>
-                {medicalRecord.outDayDiagnose.split("\n").map((line, index) => (
-                  <React.Fragment key={index}>
-                    {line}
-                    {index <
-                      medicalRecord.outDayDiagnose.split("\n").length - 1 && (
-                      <br />
-                    )}
-                  </React.Fragment>
-                ))}
-              </p>
+              <p>{medicalRecord.outDayDiagnose}</p>
             </p>
             <p className="modal-item overview-item">
               <p className="modal-field overview-field">Tiền sử bệnh lý:</p>{" "}
-              <p>
-                {medicalRecord.medicalHistory.split("\n").map((line, index) => (
-                  <React.Fragment key={index}>
-                    {line}
-                    {index <
-                      medicalRecord.medicalHistory.split("\n").length - 1 && (
-                      <br />
-                    )}
-                  </React.Fragment>
-                ))}
-              </p>
+              <p>{medicalRecord.medicalHistory}</p>
             </p>
             <p className="modal-item overview-item">
               <p className="modal-field overview-field">
                 Quá trình diễn biến của bệnh:
               </p>{" "}
-              <p>
-                {medicalRecord.diseaseProgress
-                  .split("\n")
-                  .map((line, index) => (
-                    <React.Fragment key={index}>
-                      {line}
-                      {index <
-                        medicalRecord.diseaseProgress.split("\n").length -
-                          1 && <br />}
-                    </React.Fragment>
-                  ))}
-              </p>
+              <p>{medicalRecord.diseaseProgress}</p>
             </p>
             <p className="modal-item overview-item">
               <p className="modal-field overview-field">Kết quả xét nghiệm:</p>{" "}
-              <p>
-                {medicalRecord.testResults.split("\n").map((line, index) => (
-                  <React.Fragment key={index}>
-                    {line}
-                    {index <
-                      medicalRecord.testResults.split("\n").length - 1 && (
-                      <br />
-                    )}
-                  </React.Fragment>
-                ))}
-              </p>
+              <p>{medicalRecord.testResults}</p>
             </p>
             <p className="modal-item overview-item">
               <p className="modal-field overview-field">
                 Trạng thái lúc ra viện:
               </p>{" "}
-              <p>
-                {medicalRecord.hospitalDischargeStatus
-                  .split("\n")
-                  .map((line, index) => (
-                    <React.Fragment key={index}>
-                      {line}
-                      {index <
-                        medicalRecord.hospitalDischargeStatus.split("\n")
-                          .length -
-                          1 && <br />}
-                    </React.Fragment>
-                  ))}
-              </p>
+              <p>{medicalRecord.hospitalDischargeStatus}</p>
             </p>
             <p className="modal-item overview-item">
               <span className="modal-field overview-field">Điều trị:</span>{" "}
@@ -346,16 +293,7 @@ const MedicalRecordDetail: React.FC<MedicalRecordDetailProps> = ({
             </p>
             <p className="modal-item overview-item">
               <p className="modal-field overview-field">Ghi chú:</p>{" "}
-              <p>
-                {medicalRecord.note.split("\n").map((line, index) => (
-                  <React.Fragment key={index}>
-                    {line}
-                    {index < medicalRecord.note.split("\n").length - 1 && (
-                      <br />
-                    )}
-                  </React.Fragment>
-                ))}
-              </p>
+              <p>{medicalRecord.note}</p>
             </p>
             {medicalRecord.treatmentPlan !== null && (
               <button className="modal-button" onClick={openTM}>

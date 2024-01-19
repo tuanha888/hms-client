@@ -11,7 +11,6 @@ import {
   updatePost,
 } from "../../../../../redux/actions/post-actions";
 import { Field } from "../../../interfaces";
-import React from "react";
 interface DetailProps {
   fields: Field[];
   entity: any;
@@ -47,7 +46,7 @@ const PostDetail: React.FC<DetailProps> = ({
             <p className="modal-item">
               <span className="modal-field">{field.fieldDisplay}:</span>{" "}
               {field.type === "textarea" ? (
-                <p>
+                <p className="dcm">
                   {entity[field.fieldName].split("\n").map((line, index) => (
                     <React.Fragment key={index}>
                       {line}

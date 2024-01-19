@@ -16,7 +16,7 @@ const Post = () => {
     post !== null
       ? true
       : useFetchData(() => {
-          return dispatch(getPost(id!));
+          return dispatch(getPost(id));
         });
   return (
     <>
