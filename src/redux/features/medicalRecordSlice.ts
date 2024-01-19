@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { createMedicalRecord, deleteMedicalRecord, getMedicalRecord, getMedicalRecordOfPatients, updateMedicalRecord } from "../actions/medicalRecord-actions";
 import { TreatmentPlan } from "./treatmentPlanSlice";
-import { createTreatmentPlan, deleteTreatmentPlan } from "../actions/treatmentPlan-actions";
+import { createTreatmentPlan, deleteTreatmentPlan, updateTreatmentPlan } from "../actions/treatmentPlan-actions";
 
 export interface MedicalRecord {
     id: string
@@ -80,6 +80,18 @@ export const medicalRecordSlice = createSlice({
                     return {
                         ...med,
                     treatmentPlan: null
+                    }
+                }
+                else return med
+            })
+        })
+        builder.addCase(updateTreatmentPlan.fulfilled, (state, action) => {
+            const updated = action.payload
+            state.medicalRecords = state.medicalRecords.map(med => {
+                if (med.treatmentPlan?.id === updated.id) {
+                    return {
+                        ...med,
+                    treatmentPlan: updated
                     }
                 }
                 else return med

@@ -18,10 +18,10 @@ const initialValues = {
   newPassword: "",
 };
 const changePasswordSchema = yup.object({
-  oldPassword: yup.string().min(5, "Mật khẩu phải có ít nhất 8 kí tự!"),
+  oldPassword: yup.string().min(5, "Mật khẩu phải có ít nhất 5 kí tự!"),
   newPassword: yup
     .string()
-    .min(8, "Mật khẩu phải có ít nhất 8 kí tự!")
+    .min(5, "Mật khẩu phải có ít nhất 5 kí tự!")
     .required("Vui lòng nhập mật khẩu mới"),
 });
 const ChangePasswordModal: React.FC<ChangePasswordProps> = ({ closeModal }) => {
@@ -70,6 +70,9 @@ const ChangePasswordModal: React.FC<ChangePasswordProps> = ({ closeModal }) => {
             value={formik.values.oldPassword}
             onChange={formik.handleChange}
           />
+          {formik.touched.oldPassword && formik.errors.oldPassword && (
+            <div className="error-message">{formik.errors.oldPassword}</div>
+          )}
           <input
             type="password"
             name="newPassword"
@@ -78,6 +81,9 @@ const ChangePasswordModal: React.FC<ChangePasswordProps> = ({ closeModal }) => {
             value={formik.values.newPassword}
             onChange={formik.handleChange}
           />
+          {formik.touched.newPassword && formik.errors.newPassword && (
+            <div className="error-message">{formik.errors.newPassword}</div>
+          )}
           <button type="submit">Đổi mật khẩu</button>
         </form>
       </div>

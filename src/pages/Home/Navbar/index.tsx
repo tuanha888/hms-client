@@ -32,9 +32,6 @@ const Navbar = () => {
             <li className="nav-item">
               <a>Về chúng tôi</a>
             </li>
-            <li className="nav-item">
-              <a>Liên hệ</a>
-            </li>
             <li className="nav-item" onClick={() => navigate("/posts")}>
               <a>Bài viết</a>
             </li>

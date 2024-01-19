@@ -89,13 +89,13 @@ const TreatmentPlans = () => {
     {
       fieldName: "nextExpectedExaminationDay",
       fieldDisplay: "Ngày khám dự kiến tiếp theo",
-      overviewDisplay: false,
+      overviewDisplay: true,
       detailDisplay: true,
       modifyDisplay: true,
       choosen: null,
       type: "dateday",
       viewDetail: null,
-      needValidated: false,
+      needValidated: true,
     },
     {
       fieldName: "note",

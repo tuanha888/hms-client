@@ -222,10 +222,11 @@ const Appointments: React.FC<AppointmentsProps> = ({ role }) => {
     },
   ];
   useEffect(() => {
-    setFilteredAppointments(
-      appointments.filter((app) => app.status === "ACCEPT")
-    );
+    setFilteredAppointments(appointments.filter((app) => app.status === type));
   }, []);
+  useEffect(() => {
+    setFilteredAppointments(appointments.filter((app) => app.status === type));
+  }, [appointments]);
   const handleClick = (type: any) => {
     if (type === "ACCEPT") {
       setType("ACCEPT");
