@@ -16,7 +16,7 @@ export const getPatient = createAsyncThunk(
         }
         } )
         response.data.role = "PATIENT"
-        response.data.avatar = "https://res.cloudinary.com/ddiudyz6q/image/upload/v1681701487/fadebook/avatars/woman-avatar_ztjjly.png"
+        response.data.avatar = "https://res.cloudinary.com/ddiudyz6q/image/upload/v1705380139/hms/avatars/6yvpkj_d98mou.jpg"
         response.data.phoneNumber = response.data.phoneNumber.replace('84','0')
         localStorage.setItem('currentUser', JSON.stringify(response.data));
         if (response.status < 200 || response.status >=300) {

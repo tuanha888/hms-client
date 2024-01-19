@@ -50,7 +50,7 @@ const MedicalRecord: React.FC<PrescriptionDetailProps> = ({
         <p className="modal-item overview-item">
           <span className="modal-field overview-field">Ngày ra viện:</span>{" "}
           <span>
-            {medicalRecord.inDay.toLocaleDateString("vi", {
+            {medicalRecord.outDay?.toLocaleDateString("vi", {
               day: "2-digit",
               month: "2-digit",
               year: "numeric",

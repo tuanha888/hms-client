@@ -242,7 +242,14 @@ const PrescriptionDetail: React.FC<PrescriptionDetailProps> = ({
             )}
             <p className="modal-item overview-item">
               <span className="modal-field overview-field">Lưu ý:</span>{" "}
-              <span>{prescription.note}</span>
+              <p>
+                {prescription.note.split("\n").map((line, index) => (
+                  <React.Fragment key={index}>
+                    {line}
+                    {index < prescription.note.split("\n").length - 1 && <br />}
+                  </React.Fragment>
+                ))}
+              </p>
             </p>
             <FaTimes className="modal-close" onClick={closeDetailModal} />
             {openDetailEdit && (
