@@ -29,6 +29,9 @@ body {
 }
 a {
     text-decoration: none;
+    &:visited {
+        color: inherit;
+    }
 }
 img {
     display: block;

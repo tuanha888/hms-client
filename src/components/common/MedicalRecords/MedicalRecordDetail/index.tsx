@@ -74,7 +74,7 @@ const MedicalRecordDetail: React.FC<MedicalRecordDetailProps> = ({
       fieldName: "doctorName",
       fieldDisplay: "Bác sĩ",
       overviewDisplay: true,
-      detailDisplay: true,
+      detailDisplay: false,
       modifyDisplay: false,
       choosen: null,
       type: "text",

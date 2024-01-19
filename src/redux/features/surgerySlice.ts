@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { createSurgery, deleteSurgery, getSurgeries, updateSurgery } from "../actions/surgery-actions"
 import { isDateInCurrentWeek } from "../actions/config"
-
 export interface Surgery {
     id: string,
     doctorId: string,

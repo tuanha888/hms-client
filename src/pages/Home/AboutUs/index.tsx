@@ -2,7 +2,7 @@ import React from "react";
 import "./AboutUs.scss";
 const AboutUs = () => {
   return (
-    <div className="about">
+    <section className="about" id="about">
       <div className="about-heading">Về chúng tôi</div>
       <p className="about-content">
         Ra đời năm 2012, Bệnh viện đa khoa 20 mang sứ mệnh “Mang lại sự lựa chọn
@@ -26,7 +26,7 @@ const AboutUs = () => {
           </p>
         </li>
       </ul>
-    </div>
+    </section>
   );
 };
 
