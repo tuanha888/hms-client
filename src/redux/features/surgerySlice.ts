@@ -47,9 +47,10 @@ export const surgerySlice = createSlice({
             state.surgeries = state.surgeries.filter(surgery => surgery.id !== id)
         })
         builder.addCase(createSurgery.fulfilled, (state, action) => {
-            const newSur = action.payload
 
-            state.surgeries = [newSur, ...state.surgeries]
+            const newSur = action.payload as Surgery;
+            if (isDateInCurrentWeek(newSur.time))
+                state.surgeries = [newSur, ...state.surgeries]
         })
     },
 })
