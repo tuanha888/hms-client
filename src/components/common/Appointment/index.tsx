@@ -32,7 +32,23 @@ const Appointment: React.FC<AppoinmentProps> = ({
                 {field.fieldDisplay}:
               </span>{" "}
               <span>
-                {!field.type.includes("date")
+                {field.fieldName === "status"
+                  ? entity[field.fieldName] === "ACCEPT"
+                    ? "Đã chấp nhận"
+                    : entity[field.fieldName] === "REJECT"
+                    ? "Bị từ chối"
+                    : "Chờ phản hồi"
+                  : field.fieldName === "gender"
+                  ? entity[field.fieldName] === "MALE"
+                    ? "Nam"
+                    : "Nữ"
+                  : field.fieldName === "stayType"
+                  ? entity[field.fieldName] === "STAY"
+                    ? "Nội trú"
+                    : entity[field.fieldName] === "NOT_STAY"
+                    ? "Ngoại trú"
+                    : "Ở ban ngày"
+                  : !field.type.includes("date")
                   ? entity[field.fieldName]
                   : entity[field.fieldName].toLocaleDateString("vi", {
                       day: "2-digit",

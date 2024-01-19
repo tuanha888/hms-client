@@ -56,7 +56,23 @@ const Detail: React.FC<DetailProps> = ({
                 </p>
               ) : (
                 <span>
-                  {!field.type.includes("date")
+                  {field.fieldName === "status"
+                    ? entity[field.fieldName] === "ACCEPT"
+                      ? "Đã chấp nhận"
+                      : entity[field.fieldName] === "REJECT"
+                      ? "Bị từ chối"
+                      : "Chờ phản hồi"
+                    : field.fieldName === "gender"
+                    ? entity[field.fieldName] === "MALE"
+                      ? "Nam"
+                      : "Nữ"
+                    : field.fieldName === "stayType"
+                    ? entity[field.fieldName] === "STAY"
+                      ? "Nội trú"
+                      : entity[field.fieldName] === "NOT_STAY"
+                      ? "Ngoại trú"
+                      : "Ở ban ngày"
+                    : !field.type.includes("date")
                     ? field.viewDetail !== null
                       ? field.viewDetail(entity)
                       : entity[field.fieldName]

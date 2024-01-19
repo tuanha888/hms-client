@@ -17,7 +17,7 @@ const Landing = () => {
             người bệnh làm trung tâm. Chúng tôi cam kết đem đến dịch vụ chăm sóc
             sức khỏe tốt
           </p>
-          <a>Dịch vụ</a>
+          <a href="#services">Dịch vụ</a>
         </div>
       </div>
     </div>

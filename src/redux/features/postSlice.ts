@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { createPost, deletePost, getPosts, getPostsOfDoctor, updatePost } from "../actions/post-actions"
+import { createPost, deletePost, getPost, getPosts, getPostsOfDoctor, updatePost } from "../actions/post-actions"
 
 
 export interface Post {
@@ -17,10 +17,12 @@ export interface Post {
 
 const initValues : {
     posts: Post[],
-    doctorPosts: Post[]
+    doctorPosts: Post[],
+    post: Post | null
 } = {
     posts: [],
-    doctorPosts: []
+    doctorPosts: [],
+    post: null
 }
 
 export const postSlice = createSlice({
@@ -51,6 +53,9 @@ export const postSlice = createSlice({
         builder.addCase(deletePost.fulfilled, (state, action) => {
             const id = action.payload
             state.doctorPosts = state.doctorPosts.filter(post => post.id !== id)
+        })
+        builder.addCase(getPost.fulfilled, (state, action) => {
+            state.post = action.payload
         })
     },
 })

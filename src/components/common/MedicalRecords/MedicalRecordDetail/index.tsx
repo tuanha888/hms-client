@@ -137,7 +137,7 @@ const MedicalRecordDetail: React.FC<MedicalRecordDetailProps> = ({
       choosen: null,
       type: "dateday",
       viewDetail: null,
-      needValidated: true,
+      needValidated: false,
     },
     {
       fieldName: "nextExpectedExaminationDay",
@@ -342,7 +342,11 @@ const MedicalRecordDetail: React.FC<MedicalRecordDetailProps> = ({
             </p>
             <p className="modal-item overview-item">
               <span className="modal-field overview-field">Điều trị:</span>{" "}
-              <span>{medicalRecord.stayType}</span>
+              {medicalRecord.stayType === "STAY"
+                ? "Nội trú"
+                : medicalRecord.stayType === "NOT_STAY"
+                ? "Ngoại trú"
+                : "Ở ban ngày"}
             </p>
             <p className="modal-item overview-item">
               <p className="modal-field overview-field">Ghi chú:</p>{" "}

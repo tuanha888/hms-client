@@ -50,6 +50,7 @@ const DoctorDetail: React.FC<DetailProps> = ({
       choosen: null,
       type: "text",
       viewDetail: null,
+      needValidated: false,
     },
     {
       fieldName: "time",
@@ -60,6 +61,7 @@ const DoctorDetail: React.FC<DetailProps> = ({
       choosen: null,
       type: "datetime",
       viewDetail: null,
+      needValidated: true,
     },
     {
       fieldName: "note",
@@ -70,6 +72,7 @@ const DoctorDetail: React.FC<DetailProps> = ({
       choosen: null,
       type: "text",
       viewDetail: null,
+      needValidated: false,
     },
   ];
   const initFields: InitField[] = [
@@ -100,7 +103,23 @@ const DoctorDetail: React.FC<DetailProps> = ({
             <p className="modal-item">
               <span className="modal-field">{field.fieldDisplay}:</span>{" "}
               <span>
-                {!field.type.includes("date")
+                {field.fieldName === "status"
+                  ? entity[field.fieldName] === "ACCEPT"
+                    ? "Đã chấp nhận"
+                    : entity[field.fieldName] === "REJECT"
+                    ? "Bị từ chối"
+                    : "Chờ phản hồi"
+                  : field.fieldName === "gender"
+                  ? entity[field.fieldName] === "MALE"
+                    ? "Nam"
+                    : "Nữ"
+                  : field.fieldName === "stayType"
+                  ? entity[field.fieldName] === "STAY"
+                    ? "Nội trú"
+                    : entity[field.fieldName] === "NOT_STAY"
+                    ? "Ngoại trú"
+                    : "Ở ban ngày"
+                  : !field.type.includes("date")
                   ? entity[field.fieldName]
                   : field.type === "dateday"
                   ? entity[field.fieldName].toLocaleDateString("vi", {

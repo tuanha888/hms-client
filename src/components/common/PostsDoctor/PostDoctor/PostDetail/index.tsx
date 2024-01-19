@@ -74,7 +74,7 @@ const PostDetail: React.FC<DetailProps> = ({
         else
           render.unshift(
             <div className="overview-img-container post-image-container">
-              <div className="overview-img post-image">
+              <div className="post-image overview-img ">
                 <img src={entity[field.fieldName]} alt="" />
               </div>
             </div>
