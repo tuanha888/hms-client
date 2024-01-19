@@ -42,7 +42,7 @@ export const appointmentSlice = createSlice({
         })
         builder.addCase(createAppointment.fulfilled, (state, action) => {
             const newApp = action.payload
-            state.patientAppointments = [newApp, ...state.patientAppointments]
+            state.patientAppointments = [...state.patientAppointments, newApp ]
         })
         builder.addCase(updateAppointment.fulfilled, (state, action) => {
             const updated = action.payload

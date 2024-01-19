@@ -176,7 +176,7 @@ const Surgeries: React.FC<SurgeriesProps> = ({ role }) => {
           className={`surgeries-top-item ${type === "WEEK" ? "actived" : ""}`}
           onClick={() => setType("WEEK")}
         >
-          Trong tuần
+          Trong 7 ngày tới
         </li>
       </ul>
       {role === "ADMIN" && (
