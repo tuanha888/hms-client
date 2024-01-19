@@ -4,7 +4,7 @@ import Service02 from "../../../assets/images/services_02.jpg";
 import "./Services.scss";
 const Services = () => {
   return (
-    <div id="sevices" className="services">
+    <section id="services" className="services">
       <div className="container">
         <h2 className="services-heading">Dịch vụ</h2>
         <ul className="services-list">
@@ -30,7 +30,7 @@ const Services = () => {
           </li>
         </ul>
       </div>
-    </div>
+    </section>
   );
 };
 

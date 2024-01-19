@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { createSurgery, deleteSurgery, getSurgeries, updateSurgery } from "../actions/surgery-actions"
-import { isDateInCurrentWeek } from "../actions/config"
 
 export interface Surgery {
     id: string,
@@ -49,8 +48,7 @@ export const surgerySlice = createSlice({
         })
         builder.addCase(createSurgery.fulfilled, (state, action) => {
             const newSur = action.payload
-            if (isDateInCurrentWeek(newSur.time))
-                state.surgeries = [newSur, ...state.surgeries]
+            state.surgeries = [newSur, ...state.surgeries]
         })
     },
 })

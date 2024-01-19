@@ -12,7 +12,6 @@ const Home = () => {
       <Landing />
       <Services />
       <AboutUs />
-      <Contact />
     </div>
   );
 };

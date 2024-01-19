@@ -24,13 +24,13 @@ const Navbar = () => {
           </div>
           <ul className="nav-list">
             <li className="nav-item">
-              <a>Trang chủ</a>
+              <a href="#home-page">Trang chủ</a>
             </li>
             <li className="nav-item">
-              <a>Dịch vụ</a>
+              <a href="#services">Dịch vụ</a>
             </li>
             <li className="nav-item">
-              <a>Về chúng tôi</a>
+              <a href="#about">Về chúng tôi</a>
             </li>
             <li className="nav-item" onClick={() => navigate("/posts")}>
               <a>Bài viết</a>
