@@ -5,7 +5,13 @@
     margin: auto auto;
     color: #858080;
 }
-
+.chatbox-input {
+    border: none !important;
+    &:focus {
+        border: none !important;
+        box-shadow: none !important;
+    }
+}
 .chat-box {
     display: grid;
     grid-template-rows: 1fr 1px 9fr;

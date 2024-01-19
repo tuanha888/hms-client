@@ -111,6 +111,7 @@ const ChatBox: React.FC<ChatBoxProps> = ({
             </div>
             <form className="chat-box-input" onSubmit={handledSubmit}>
               <input
+                className="chatbox-input"
                 type="text"
                 placeholder="Nhập tin nhắn của bạn..."
                 onChange={handledChange}

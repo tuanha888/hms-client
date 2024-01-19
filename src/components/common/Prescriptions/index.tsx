@@ -4,6 +4,7 @@ import { AppDispatch, RootState } from "../../../redux";
 import { useDispatch, useSelector } from "react-redux";
 import { getPrescriptionOfPatient } from "../../../redux/actions/prescription-actions";
 import Prescription from "../Prescription";
+import "./Prescription.scss";
 interface PrescriptionsProps {
   id: string | null;
   isMargin: boolean;
@@ -32,9 +33,11 @@ const Prescriptions: React.FC<PrescriptionsProps> = ({ id, isMargin }) => {
   return (
     <>
       <ul className={`prescriptions ${isMargin ? "layout" : ""}`}>
-        {isFetched && prescriptions.length !== 0
-          ? renderPrescription()
-          : "Bệnh nhân chưa có đơn thuốc nào"}
+        {isFetched && prescriptions.length !== 0 ? (
+          renderPrescription()
+        ) : (
+          <p className="prescriptions-no">Bệnh nhân chưa có đơn thuốc nào</p>
+        )}
       </ul>
     </>
   );

@@ -209,9 +209,15 @@ const CreatePrescription: React.FC<PrescriptionDetailProps> = ({
             </p>
             <FaTimes className="modal-close" onClick={closeCreateModal} />
             <>
-              <button className="modal-button" onClick={openAddNote}>
-                {pres.note !== "" ? "Sửa lưu ý" : "Thêm lưu ý"}
-              </button>
+              {pres.note !== "" ? (
+                <button className="modal-button" onClick={openModify}>
+                  {"Sửa lưu ý"}
+                </button>
+              ) : (
+                <button className="modal-button" onClick={openAddNote}>
+                  {"Thêm lưu ý"}
+                </button>
+              )}
               <button className="modal-button" onClick={handleCreate}>
                 Thêm
               </button>

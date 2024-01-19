@@ -106,10 +106,18 @@ const Modify: React.FC<ModifyProps> = ({
             } else if (field.type === "dateday") {
               const selectedDate = new Date(value);
               const currentDate = new Date();
-
-              return selectedDate >= currentDate
-                ? undefined // Valid date
-                : "Ngày phải lớn hơn hoặc bằng ngày hiện tại";
+              if (
+                selectedDate.getFullYear() > currentDate.getFullYear() ||
+                (selectedDate.getFullYear() === currentDate.getFullYear() &&
+                  selectedDate.getMonth() > currentDate.getMonth()) ||
+                (selectedDate.getFullYear() === currentDate.getFullYear() &&
+                  selectedDate.getMonth() === currentDate.getMonth() &&
+                  selectedDate.getDate() >= currentDate.getDate())
+              ) {
+                return undefined; // Valid date
+              } else {
+                return "Ngày phải lớn hơn hoặc bằng ngày hiện tại";
+              }
             } else if (field.type === "text" || field.type === "textarea") {
               return value
                 ? undefined

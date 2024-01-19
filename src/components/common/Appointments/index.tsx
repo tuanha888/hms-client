@@ -41,9 +41,9 @@ const Appointments: React.FC<AppointmentsProps> = ({ role }) => {
       : useSelector(
           (state: RootState) => state.appointment.patientAppointments
         );
-  const [filteredAppointments, setFilteredAppointments] = useState(
-    appointments.filter((app) => app.status === "ACCEPT")
-  );
+  // const [filteredAppointments, setFilteredAppointments] = useState(
+  //   appointments.filter((app) => app.status === "ACCEPT")
+  // );
   const createFields: Field[] = [
     {
       fieldName: "doctorName",
@@ -221,36 +221,33 @@ const Appointments: React.FC<AppointmentsProps> = ({ role }) => {
       fieldValue: user!.name,
     },
   ];
-  useEffect(() => {
-    setFilteredAppointments(appointments.filter((app) => app.status === type));
-  }, []);
-  useEffect(() => {
-    setFilteredAppointments(appointments.filter((app) => app.status === type));
-  }, [appointments]);
+  // useEffect(() => {
+  //   setFilteredAppointments(appointments.filter((app) => app.status === type));
+  // }, []);
+  // useEffect(() => {
+  //   setFilteredAppointments(appointments.filter((app) => app.status === type));
+  // }, [appointments]);
   const handleClick = (type: any) => {
     if (type === "ACCEPT") {
       setType("ACCEPT");
-      setFilteredAppointments(
-        appointments.filter((appointment) => appointment.status === "ACCEPT")
-      );
     }
 
     if (type === "REJECT") {
       setType("REJECT");
-      setFilteredAppointments(
-        appointments.filter((appointment) => appointment.status === "REJECT")
-      );
     }
 
     if (type === "PENDING") {
       setType("PENDING");
-      setFilteredAppointments(
-        appointments.filter((appointment) => appointment.status === "PENDING")
-      );
     }
   };
   const renderAppointments = () => {
-    return filteredAppointments.map((appointment) => {
+    const renderApps =
+      type === "ACCEPT"
+        ? appointments.filter((app) => app.status === "ACCEPT")
+        : type === "REJECT"
+        ? appointments.filter((app) => app.status === "REJECT")
+        : appointments.filter((app) => app.status === "PENDING");
+    return renderApps.map((appointment) => {
       return <Appointment fields={fields} entity={appointment} role={role} />;
     });
   };
