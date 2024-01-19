@@ -1,4 +1,4 @@
-export const HOST_URL = "http://localhost:8080"
+export const HOST_URL = "http://54.83.109.61:8080"
 export function convertDatesToObjects(obj) {
   for (const key in obj) {
     if (obj[key] instanceof Object) {
