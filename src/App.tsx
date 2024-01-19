@@ -26,7 +26,6 @@ function App() {
     <div className="wrapper">
       {/* <Notification /> */}
       <Loading />
-      <DisplayUser />
       <Router>
         <Routes>
           <Route
