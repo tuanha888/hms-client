@@ -13,7 +13,7 @@ export interface Surgery {
     expectedTime: number
 }
 
-const initValues : {
+const initValues: {
     surgeries: Surgery[],
     doctorSurgeries: Surgery[]
 } = {
@@ -28,12 +28,12 @@ export const surgerySlice = createSlice({
         setSurgeries: (state, action) => {
             state.surgeries = action.payload
         },
-        setDoctorSurgeries: (state, action)=> {
+        setDoctorSurgeries: (state, action) => {
             state.doctorSurgeries = action.payload
         }
     },
     extraReducers(builder) {
-        builder.addCase(getSurgeries.fulfilled, (state, action)=> {
+        builder.addCase(getSurgeries.fulfilled, (state, action) => {
             state.surgeries = action.payload
         })
         builder.addCase(updateSurgery.fulfilled, (state, action) => {
@@ -48,12 +48,14 @@ export const surgerySlice = createSlice({
             state.surgeries = state.surgeries.filter(surgery => surgery.id !== id)
         })
         builder.addCase(createSurgery.fulfilled, (state, action) => {
-            const newSur = action.payload
+            const newSur = action.payload as Surgery;
+            const options = { timeZone: 'Asia/Ho_Chi_Minh' };
+            newSur.time = new Date(newSur.time.toLocaleString('en-US', options));
             if (isDateInCurrentWeek(newSur.time))
                 state.surgeries = [newSur, ...state.surgeries]
         })
     },
 })
 
-export const {setDoctorSurgeries, setSurgeries}= surgerySlice.actions
+export const { setDoctorSurgeries, setSurgeries } = surgerySlice.actions
 export default surgerySlice.reducer
